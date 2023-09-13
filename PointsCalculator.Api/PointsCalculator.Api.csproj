@@ -19,4 +19,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PointsCalculator.Application\PointsCalculator.Application.csproj" />
+    <ProjectReference Include="..\PointsCalculator.Infrastructure.Persistence\PointsCalculator.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\PointsCalculator.Infrastructure\PointsCalculator.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

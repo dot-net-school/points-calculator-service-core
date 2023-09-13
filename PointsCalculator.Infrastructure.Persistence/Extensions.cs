@@ -1,4 +1,4 @@
-﻿namespace PointsCalculator.Shared
+﻿namespace PointsCalculator.Infrastructure
 {
     internal class Extensions
     {
