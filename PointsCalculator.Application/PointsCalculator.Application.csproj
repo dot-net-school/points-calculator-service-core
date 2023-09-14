@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Interfaces\" />
     <Folder Include="Score\Commands\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Exceptions\" />
+    <Folder Include="Common\Exceptions\" />
     <Folder Include="Score\" />
     <Folder Include="Services\" />
     <Folder Include="Score\Queries\" />

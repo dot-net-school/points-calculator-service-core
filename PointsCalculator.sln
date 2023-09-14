@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointsCalculator.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointsCalculator.Api", "PointsCalculator.Api\PointsCalculator.Api.csproj", "{E4ED11CB-E627-49ED-95D0-F7B2777DB858}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointsCalculator.Infrastructure.Persistence", "PointsCalculator.Infrastructure.Persistence\PointsCalculator.Infrastructure.Persistence.csproj", "{7004901E-C380-44C1-846B-8EC5EF0A7BB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointsCalculator.Infrastructure.Persistence", "PointsCalculator.Infrastructure.Persistence\PointsCalculator.Infrastructure.Persistence.csproj", "{7004901E-C380-44C1-846B-8EC5EF0A7BB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointsCalculator.UnitTest", "PointsCalculator.UnitTest\PointsCalculator.UnitTest.csproj", "{03759562-1D3E-4797-BB4D-9126B083F3E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointsCalculator.UnitTest", "PointsCalculator.UnitTest\PointsCalculator.UnitTest.csproj", "{03759562-1D3E-4797-BB4D-9126B083F3E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{B6F9FA1D-117F-43A1-AFD2-C36734DD7AB6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{63EAC535-E42B-4903-9FDA-1EA4ACEC510A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{63EAC535-E42B-4903-9FDA-1EA4ACEC510A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0D633E0B-07A1-482F-9AE5-442498B18954}"
 EndProject
