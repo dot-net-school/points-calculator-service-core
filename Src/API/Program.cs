@@ -1,4 +1,9 @@
 
+using API;
+using Application;
+using Infrastructure;
+using Persistence;
+
 namespace PointsCalculator.Api
 {
     public class Program
@@ -6,10 +11,14 @@ namespace PointsCalculator.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             // Add services to the container.
-
             builder.Services.AddControllers();
+            
+            builder.Services.RegisterApplicationServices()
+                .RegisterInfrastructureServices()
+                .RegisterPersistenceServices(builder.Configuration)
+                .RegisterApiServices();
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -22,14 +31,9 @@ namespace PointsCalculator.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
