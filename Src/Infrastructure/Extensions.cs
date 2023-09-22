@@ -9,7 +9,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();// (provider => provider.GetRequiredService<ApplicationDbContext>());
 
             return services;
         }
