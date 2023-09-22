@@ -1,6 +1,6 @@
-﻿using Application.Services.AgeScoreServices.Commands.Create;
+﻿using Application.Score.Commands.CreateAgeScore;
+using Application.Score.Commands.UpdateAgeScore;
 using Application.Services.AgeScoreServices.Commands.Delete;
-using Application.Services.AgeScoreServices.Commands.Update;
 using Application.Services.AgeScoreServices.Queries.GetAll;
 using Domain.Entities.AgeScoreEntity;
 using MediatR;

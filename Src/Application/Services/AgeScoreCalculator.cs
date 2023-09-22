@@ -2,7 +2,7 @@
 using Domain.Entities.AgeScoreEntity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Services.AgeScoreServices;
+namespace Application.Services;
 
 public class AgeScoreCalculator
 {
@@ -15,7 +15,12 @@ public class AgeScoreCalculator
     {
         if (age > 45 || age < 18)
             return 0;
-        AgeScore? ageScore = await _dbContext.AgeScores.FirstOrDefaultAsync(x => x.FromAge >= age && x.ToAge >= age);
-        return ageScore is null ? 0 : ageScore.Score;
+
+        var ageScore = await _dbContext.AgeScores
+            .Where(x => x.FromAge >= age && x.ToAge >= age)
+            .Select(s => s.Score)
+            .FirstOrDefaultAsync();
+
+        return ageScore;
     }
 }

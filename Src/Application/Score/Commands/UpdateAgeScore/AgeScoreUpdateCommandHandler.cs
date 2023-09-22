@@ -2,7 +2,7 @@
 using Domain.Entities.AgeScoreEntity;
 using MediatR;
 
-namespace Application.Services.AgeScoreServices.Commands.Update;
+namespace Application.Score.Commands.UpdateAgeScore;
 
 public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateCommand>
 {

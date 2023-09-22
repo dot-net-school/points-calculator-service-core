@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Application.Services.AgeScoreServices.Commands.Create;
+namespace Application.Score.Commands.CreateAgeScore;
 
 public record AgeScoreCreateCommand(int FromAge, int ToAge, int Score) : IRequest<Guid>;

@@ -2,7 +2,7 @@
 using Domain.Entities.AgeScoreEntity;
 using MediatR;
 
-namespace Application.Services.AgeScoreServices.Commands.Create;
+namespace Application.Score.Commands.CreateAgeScore;
 
 public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateCommand, Guid>
 {
@@ -15,7 +15,7 @@ public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateComman
     {
         AgeScore ageScore = new(request.FromAge, request.ToAge, request.Score);
         await _dbContext.AgeScores.AddAsync(ageScore, cancellationToken);
-       
+
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return ageScore.Id;

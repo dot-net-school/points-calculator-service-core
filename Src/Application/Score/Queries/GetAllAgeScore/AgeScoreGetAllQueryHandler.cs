@@ -3,7 +3,7 @@ using Domain.Entities.AgeScoreEntity;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Services.AgeScoreServices.Queries.GetAll;
+namespace Application.Score.Queries.GetAllAgeScore;
 
 public class AgeScoreGetAllQueryHandler : IRequestHandler<AgeScoreGetAllQuery, List<AgeScore>>
 {
