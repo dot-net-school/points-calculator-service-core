@@ -15,7 +15,7 @@ public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateComman
     {
         AgeScore? ageScore = await _dbContext.AgeScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
         if (ageScore == null)
-            throw new KeyNotFoundException(nameof(ageScore));
+            throw new Exception("Id is not valid");
 
         ageScore.Update(request.FromAge, request.ToAge, request.Score);
         _dbContext.AgeScores.Update(ageScore);

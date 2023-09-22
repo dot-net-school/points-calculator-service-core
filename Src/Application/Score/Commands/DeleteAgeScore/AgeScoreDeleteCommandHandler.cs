@@ -15,7 +15,7 @@ public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteComman
     {
         AgeScore? ageScore = await _dbContext.AgeScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
         if (ageScore is null)
-            throw new KeyNotFoundException(nameof(ageScore));
+            throw new Exception("Id is not valid");
 
         _dbContext.AgeScores.Remove(ageScore);
         await _dbContext.SaveChangesAsync(cancellationToken);
