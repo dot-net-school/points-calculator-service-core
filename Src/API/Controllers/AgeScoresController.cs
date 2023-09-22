@@ -1,7 +1,7 @@
 ﻿using Application.Score.Commands.CreateAgeScore;
+using Application.Score.Commands.DeleteAgeScore;
 using Application.Score.Commands.UpdateAgeScore;
-using Application.Services.AgeScoreServices.Commands.Delete;
-using Application.Services.AgeScoreServices.Queries.GetAll;
+using Application.Score.Queries.GetAllAgeScore;
 using Domain.Entities.AgeScoreEntity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

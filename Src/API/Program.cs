@@ -1,5 +1,6 @@
 using Infrastructure;
 using System.Reflection;
+using Application;
 
 namespace API;
 
@@ -17,6 +18,7 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("Application")));
         builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddApplication(builder.Configuration);
 
         var app = builder.Build();
 
