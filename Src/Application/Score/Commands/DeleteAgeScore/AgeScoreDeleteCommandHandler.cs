@@ -4,20 +4,23 @@ using MediatR;
 
 namespace Application.Score.Commands.DeleteAgeScore;
 
-public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteCommand>
+public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteCommand, string>
 {
     private readonly IApplicationDbContext _context;
     public AgeScoreDeleteCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
-    public async Task Handle(AgeScoreDeleteCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(AgeScoreDeleteCommand request, CancellationToken cancellationToken)
     {
         AgeScore? ageScore = await _context.AgeScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
         if (ageScore is null)
-            throw new Exception("Id is not valid");
+        {
+            return "Id is invalid!";
+        }
 
         _context.AgeScores.Remove(ageScore);
         await _context.SaveChangesAsync(cancellationToken);
+        return "ageScore was deleted!";
     }
 }

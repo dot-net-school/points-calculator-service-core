@@ -19,30 +19,26 @@ public class AgeScoresController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<List<AgeScore>>> GetAll()
     {
-        List<AgeScore> ageScores = await _mediator.Send(new AgeScoreGetAllQuery());
-        return Ok(ageScores);
+        return await _mediator.Send(new AgeScoreGetAllQuery()); ;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(AgeScoreCreateCommand command)
+    public async Task<ActionResult<Guid>> Create(AgeScoreCreateCommand command)
     {
-        Guid Id = await _mediator.Send(command);
-        return Ok(Id);
+        return await _mediator.Send(command);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(AgeScoreUpdateCommand command)
+    public async Task<ActionResult<string>> Update(AgeScoreUpdateCommand command)
     {
-        await _mediator.Send(command);
-        return Ok();
+        return await _mediator.Send(command);
     }
 
     [HttpDelete("{Id}")]
-    public async Task<IActionResult> Delete(Guid Id)
+    public async Task<ActionResult<string>> Delete(Guid Id)
     {
-        await _mediator.Send(new AgeScoreDeleteCommand(Id));
-        return Ok();
+        return await _mediator.Send(new AgeScoreDeleteCommand(Id));
     }
 }

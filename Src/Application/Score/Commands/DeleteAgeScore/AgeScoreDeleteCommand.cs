@@ -2,4 +2,4 @@
 
 namespace Application.Score.Commands.DeleteAgeScore;
 
-public record AgeScoreDeleteCommand(Guid Id) : IRequest;
+public record AgeScoreDeleteCommand(Guid Id) : IRequest<string>;

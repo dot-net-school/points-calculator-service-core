@@ -14,7 +14,9 @@ public class AgeScoreCalculatorService : IScoreCalculatorService<int, int>
     public async Task<int> CalculateScore(int age)
     {
         if (age > 45 || age < 18)
-            return 0;
+        { 
+            return 0; 
+        }
 
         var ageScore = await _dbContext.AgeScores
             .Where(x => x.FromAge >= age && x.ToAge >= age)
