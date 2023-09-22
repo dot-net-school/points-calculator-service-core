@@ -6,18 +6,18 @@ namespace Application.Score.Commands.DeleteAgeScore;
 
 public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteCommand>
 {
-    private readonly IApplicationDbContext _dbContext;
-    public AgeScoreDeleteCommandHandler(IApplicationDbContext dbContext)
+    private readonly IApplicationDbContext _context;
+    public AgeScoreDeleteCommandHandler(IApplicationDbContext context)
     {
-        _dbContext = dbContext;
+        _context = context;
     }
     public async Task Handle(AgeScoreDeleteCommand request, CancellationToken cancellationToken)
     {
-        AgeScore? ageScore = await _dbContext.AgeScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
+        AgeScore? ageScore = await _context.AgeScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
         if (ageScore is null)
             throw new Exception("Id is not valid");
 
-        _dbContext.AgeScores.Remove(ageScore);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _context.AgeScores.Remove(ageScore);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

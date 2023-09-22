@@ -6,17 +6,17 @@ namespace Application.Score.Commands.CreateAgeScore;
 
 public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateCommand, Guid>
 {
-    private readonly IApplicationDbContext _dbContext;
-    public AgeScoreCreateCommandHandler(IApplicationDbContext dbContext)
+    private readonly IApplicationDbContext _context;
+    public AgeScoreCreateCommandHandler(IApplicationDbContext context)
     {
-        _dbContext = dbContext;
+        _context = context;
     }
     public async Task<Guid> Handle(AgeScoreCreateCommand request, CancellationToken cancellationToken)
     {
         AgeScore ageScore = new(request.FromAge, request.ToAge, request.Score);
-        _dbContext.AgeScores.Add(ageScore);
+        _context.AgeScores.Add(ageScore);
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return ageScore.Id;
     }
