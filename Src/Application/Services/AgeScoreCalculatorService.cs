@@ -1,13 +1,12 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Entities.AgeScoreEntity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
-public class AgeScoreCalculator
+public class AgeScoreCalculatorService
 {
     private readonly IApplicationDbContext _dbContext;
-    public AgeScoreCalculator(IApplicationDbContext dbContext)
+    public AgeScoreCalculatorService(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
