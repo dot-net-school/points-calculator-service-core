@@ -19,7 +19,7 @@ public class AgeScoresController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<AgeScore>>> GetAll()
+    public async Task<ActionResult<List<AgeScoreDto>>> GetAll()
     {
         return await _mediator.Send(new AgeScoreGetAllQuery()); ;
     }
