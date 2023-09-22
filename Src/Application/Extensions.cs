@@ -1,4 +1,4 @@
-﻿namespace PointsCalculator.Application
+﻿namespace Application
 {
     internal class Extensions
     {

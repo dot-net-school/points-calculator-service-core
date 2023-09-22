@@ -1,4 +1,4 @@
-namespace PointsCalculator.Infrastructure.Services;
+namespace Persistence;
 
 public class ExternalService
 {

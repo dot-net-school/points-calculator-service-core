@@ -1,4 +1,4 @@
-namespace PointsCalculator.Infrastructure.EF.Options;
+namespace Persistence.EF.Options;
 
 public class DataBaseOptions
 {
