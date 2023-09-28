@@ -1,6 +1,7 @@
-﻿namespace PointsCalculator.Infrastructure
+﻿namespace Persistence
 {
-    internal class Extensions
+    public static class Extensions
     {
+
     }
 }

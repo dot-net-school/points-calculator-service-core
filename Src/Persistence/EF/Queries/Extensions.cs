@@ -1,5 +1,5 @@
 
-namespace PointsCalculator.Infrastructure.EF.Queries;
+namespace Persistence.EF.Queries;
 
 internal static class Extensions
 {

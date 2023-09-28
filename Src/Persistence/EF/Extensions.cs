@@ -1,4 +1,4 @@
-namespace PointsCalculator.Infrastructure.EF;
+namespace Persistence.EF;
 
 internal static class Extensions
 {
