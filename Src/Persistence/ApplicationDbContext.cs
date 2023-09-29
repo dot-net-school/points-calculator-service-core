@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities.AgeScoreEntity;
+using Domain.Entities.JobExperienceScoreEntity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
@@ -13,4 +14,5 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=PointCalculator;Integrated Security=True; Encrypt=false");
     }
     public DbSet<AgeScore> AgeScores { get; set; }
+    public DbSet<JobExperienceScore> JobExperienceScores { get; set; }
 }
