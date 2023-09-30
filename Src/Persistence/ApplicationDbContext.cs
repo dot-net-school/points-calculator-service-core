@@ -1,6 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Entities.AgeScoreEntity;
-using Domain.Entities.JobExperienceScoreEntity;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;

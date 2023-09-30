@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Entities.JobExperienceScoreEntity;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Shared.Application;
 
 namespace Application.Score.Commands.JobExperienceScore.UpdateJobExperienceScore;
@@ -15,7 +15,8 @@ public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobE
     }
     public async Task<string> Handle(UpdateJobExperienceScoreCommand request, CancellationToken cancellationToken)
     {
-        JobExperienceScore? jobExperienceScore = await _context.JobExperienceScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
+        var jobExperienceScore = await _context.JobExperienceScores.Where(x => x.Id == request.Id)
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (jobExperienceScore == null)
         {

@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.JobExperienceScoreEntity;
+﻿namespace Domain.Entities;
 
 public class JobExperienceScore
 {
@@ -6,14 +6,6 @@ public class JobExperienceScore
     public int MinExperience { get; set; }
     public int MaxExperience { get; set; }
     public int Score { get; set; }
-
-    public JobExperienceScore(int minExperience, int maxExperience, int score)
-    {
-        Id = Guid.NewGuid();
-        MinExperience = minExperience;
-        MaxExperience = maxExperience;
-        Score = score;
-    }
 
 
     public void Update(int minExperience, int maxExperience, int score)

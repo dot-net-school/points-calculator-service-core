@@ -1,5 +1,4 @@
-﻿using Domain.Entities.AgeScoreEntity;
-using Domain.Entities.JobExperienceScoreEntity;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Common.Interfaces;

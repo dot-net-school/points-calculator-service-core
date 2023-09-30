@@ -1,5 +1,4 @@
-﻿using Domain.Entities.AgeScoreEntity;
-using MediatR;
+﻿using MediatR;
 
 namespace Application.Score.Queries.GetAllAgeScore;
 
