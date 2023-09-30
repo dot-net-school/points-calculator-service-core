@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities.JobExperienceScoreEntity;
 using MediatR;
+using Shared.Application;
 
 namespace Application.Score.Commands.JobExperienceScore.UpdateJobExperienceScore;
 
@@ -18,13 +19,13 @@ public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobE
 
         if (jobExperienceScore == null)
         {
-            return "Record Not Found";
+            return OperationResult.Failed(Resource.RecordNotFound);
         }
 
         jobExperienceScore.Update(request.MinExperience, request.MaxExperience, request.Score);
         _context.JobExperienceScores.Update(jobExperienceScore);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return "Succeeded";
+        return OperationResult.Succeeded();
     }
 }

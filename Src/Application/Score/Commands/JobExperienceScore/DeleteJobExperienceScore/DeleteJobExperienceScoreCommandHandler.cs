@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities.JobExperienceScoreEntity;
 using MediatR;
+using Shared.Application;
 
 namespace Application.Score.Commands.JobExperienceScore.DeleteJobExperienceScore;
 
@@ -19,12 +20,12 @@ public class DeleteJobExperienceScoreCommandHandler : IRequestHandler<DeleteJobE
 
         if (jobExperienceScore == null)
         {
-            return "Record Not Found";
+            return OperationResult.Failed(Resource.RecordNotFound);
         }
 
         _context.JobExperienceScores.Remove(jobExperienceScore);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return "Record Delete Succeeded";
+        return OperationResult.Succeeded();
     }
 }
