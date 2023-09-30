@@ -3,9 +3,9 @@ using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Score.Queries.GetJobExperienceScore;
+namespace Application.Score.JobExperienceScore.Queries;
 
-public class GetJobExperienceScoreQueryHandler :IRequestHandler<GetJobExperienceScoreQuery,List<GetJobExperienceScoreDto>>
+public class GetJobExperienceScoreQueryHandler : IRequestHandler<GetJobExperienceScoreQuery, List<GetJobExperienceScoreDto>>
 {
     private readonly IApplicationDbContext _context;
 

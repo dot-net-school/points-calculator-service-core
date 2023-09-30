@@ -3,9 +3,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.Application;
 
-namespace Application.Score.Commands.JobExperienceScore.UpdateJobExperienceScore;
+namespace Application.Score.JobExperienceScore.Commands.UpdateJobExperienceScore;
 
-public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobExperienceScoreCommand,string>
+public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobExperienceScoreCommand, string>
 {
     private readonly IApplicationDbContext _context;
 

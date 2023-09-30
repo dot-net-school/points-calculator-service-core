@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Score.Queries.GetJobExperienceScore;
+namespace Application.Score.JobExperienceScore.Queries;
 
 public record GetJobExperienceScoreQuery() : IRequest<List<GetJobExperienceScoreDto>>;
 

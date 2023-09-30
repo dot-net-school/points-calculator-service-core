@@ -1,11 +1,7 @@
-﻿using Application.Score.Commands.CreateAgeScore;
-using Application.Score.Commands.DeleteAgeScore;
-using Application.Score.Commands.JobExperienceScore.CreateJobExperienceScore;
-using Application.Score.Commands.JobExperienceScore.DeleteJobExperienceScore;
-using Application.Score.Commands.JobExperienceScore.UpdateJobExperienceScore;
-using Application.Score.Commands.UpdateAgeScore;
-using Application.Score.Queries.GetAllAgeScore;
-using Application.Score.Queries.GetJobExperienceScore;
+﻿using Application.Score.JobExperienceScore.Commands.CreateJobExperienceScore;
+using Application.Score.JobExperienceScore.Commands.DeleteJobExperienceScore;
+using Application.Score.JobExperienceScore.Commands.UpdateJobExperienceScore;
+using Application.Score.JobExperienceScore.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

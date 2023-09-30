@@ -2,7 +2,7 @@
 using MediatR;
 using Shared.Application;
 
-namespace Application.Score.Commands.JobExperienceScore.DeleteJobExperienceScore;
+namespace Application.Score.JobExperienceScore.Commands.DeleteJobExperienceScore;
 
 public class DeleteJobExperienceScoreCommandHandler : IRequestHandler<DeleteJobExperienceScoreCommand, string>
 {
@@ -15,7 +15,7 @@ public class DeleteJobExperienceScoreCommandHandler : IRequestHandler<DeleteJobE
 
     public async Task<string> Handle(DeleteJobExperienceScoreCommand request, CancellationToken cancellationToken)
     {
-        Domain.Entities.JobExperienceScore? jobExperienceScore = await _context.JobExperienceScores.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
+        Domain.Entities.JobExperienceScore? jobExperienceScore = await _context.JobExperienceScores.FindAsync(request.Id, cancellationToken);
 
         if (jobExperienceScore == null)
         {

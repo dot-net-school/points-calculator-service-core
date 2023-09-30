@@ -1,7 +1,8 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using MediatR;
 
-namespace Application.Score.Commands.JobExperienceScore.CreateJobExperienceScore;
+namespace Application.Score.JobExperienceScore.Commands.CreateJobExperienceScore;
 
 public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobExperienceScoreCommand, Guid>
 {
