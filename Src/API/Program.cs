@@ -1,6 +1,8 @@
 using Infrastructure;
+//using Persistence;
 using System.Reflection;
 using Application;
+using Persistence;
 
 namespace API;
 public class Program
@@ -12,18 +14,19 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        builder.Services.RegisterPersistenceServices(builder.Configuration)
+            .RegisterPresentationServices()
+            .RegisterInfrastructureServices(builder.Configuration)
+            .RegisterApplicationServices(builder.Configuration);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddInfrastructure(builder.Configuration);
-        builder.Services.AddApplication(builder.Configuration);
 
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-
             app.UseSwagger();
             app.UseSwaggerUI();
         }
@@ -31,8 +34,7 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
-
+        
         app.MapControllers();
 
         app.Run();
