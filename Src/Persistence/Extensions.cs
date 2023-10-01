@@ -10,7 +10,7 @@ namespace Persistence
             IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContext"),
+                options.UseSqlServer(configuration.GetConnectionString("MainDb"),
                     builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             
             return services;
