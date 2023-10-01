@@ -1,7 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Application;
+using Shared;
 
 namespace Application.Score.JobExperienceScore.Commands.UpdateJobExperienceScore;
 
@@ -20,13 +20,13 @@ public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobE
 
         if (jobExperienceScore == null)
         {
-            return OperationResult.Failed(Resource.RecordNotFound);
+            return OperationResult<string>.Failed(Resource.RecordNotFound).Data;
         }
 
         jobExperienceScore.Update(request.MinExperience, request.MaxExperience, request.Score);
         _context.JobExperienceScores.Update(jobExperienceScore);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return OperationResult.Succeeded();
+        return OperationResult<string>.Succeeded("200").Data;
     }
 }
