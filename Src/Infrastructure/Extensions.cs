@@ -7,7 +7,7 @@ namespace Infrastructure
 {
     public static class Extensions
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
