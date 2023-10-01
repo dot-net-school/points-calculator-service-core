@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Application.Score.AgeScore.Queries;
+namespace Application.Score.Age.Queries;
 
 public record AgeScoreGetAllQuery() : IRequest<List<AgeScoreDto>>;

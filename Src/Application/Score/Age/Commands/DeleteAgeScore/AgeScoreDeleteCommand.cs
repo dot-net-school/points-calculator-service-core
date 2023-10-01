@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Application.Score.AgeScore.Commands.DeleteAgeScore;
+namespace Application.Score.Age.Commands.DeleteAgeScore;
 
 public record AgeScoreDeleteCommand(Guid Id) : IRequest<string>;

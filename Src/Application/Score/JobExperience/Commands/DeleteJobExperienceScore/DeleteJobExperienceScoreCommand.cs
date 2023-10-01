@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Application.Score.JobExperienceScore.Commands.DeleteJobExperienceScore;
+namespace Application.Score.JobExperience.Commands.DeleteJobExperienceScore;
 
 public record DeleteJobExperienceScoreCommand(Guid Id) : IRequest<string>;

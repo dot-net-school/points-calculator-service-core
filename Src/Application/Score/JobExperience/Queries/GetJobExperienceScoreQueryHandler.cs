@@ -3,7 +3,7 @@ using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Score.JobExperienceScore.Queries;
+namespace Application.Score.JobExperience.Queries;
 
 public class GetJobExperienceScoreQueryHandler : IRequestHandler<GetJobExperienceScoreQuery, List<GetJobExperienceScoreDto>>
 {

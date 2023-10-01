@@ -1,8 +1,7 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Entities;
 using MediatR;
 
-namespace Application.Score.AgeScore.Commands.CreateAgeScore;
+namespace Application.Score.Age.Commands.CreateAgeScore;
 
 public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateCommand, Guid>
 {

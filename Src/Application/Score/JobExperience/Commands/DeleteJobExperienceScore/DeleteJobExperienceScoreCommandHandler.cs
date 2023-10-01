@@ -1,8 +1,9 @@
 ﻿using Application.Common.Interfaces;
+using Application.Score.JobExperience.Commands.DeleteJobExperienceScore;
 using MediatR;
 using Shared;
 
-namespace Application.Score.JobExperienceScore.Commands.DeleteJobExperienceScore;
+namespace Application.Score.JobExperience.Commands.DeleteJobExperienceScore;
 
 public class DeleteJobExperienceScoreCommandHandler : IRequestHandler<DeleteJobExperienceScoreCommand, string>
 {

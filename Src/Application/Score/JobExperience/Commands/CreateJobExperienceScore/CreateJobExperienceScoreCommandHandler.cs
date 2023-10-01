@@ -2,7 +2,7 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Score.JobExperienceScore.Commands.CreateJobExperienceScore;
+namespace Application.Score.JobExperience.Commands.CreateJobExperienceScore;
 
 public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobExperienceScoreCommand, Guid>
 {
@@ -15,7 +15,7 @@ public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobE
 
     public async Task<Guid> Handle(CreateJobExperienceScoreCommand request, CancellationToken cancellationToken)
     {
-        var jobExperience = new Domain.Entities.JobExperienceScore
+        var jobExperience = new JobExperienceScore
         {
             Id = Guid.NewGuid(),
             MinExperience = request.MinExperience,
@@ -23,6 +23,7 @@ public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobE
             Score = request.Score
 
         };
+
         _context.JobExperienceScores.Add(jobExperience);
 
         await _context.SaveChangesAsync(cancellationToken);
