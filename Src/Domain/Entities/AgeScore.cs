@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.AgeScoreEntity;
+﻿namespace Domain.Entities;
 
 public class AgeScore
 {
