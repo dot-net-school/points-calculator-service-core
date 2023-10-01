@@ -1,10 +1,10 @@
-﻿using Application.Score.Commands.CreateAgeScore;
-using Application.Score.Commands.DeleteAgeScore;
-using Application.Score.Commands.UpdateAgeScore;
-using Application.Score.Queries.GetAllAgeScore;
-using Domain.Entities.AgeScoreEntity;
+﻿using Application.Score.Age.Commands.CreateAgeScore;
+using Application.Score.Age.Commands.DeleteAgeScore;
+using Application.Score.Age.Commands.UpdateAgeScore;
+using Application.Score.Age.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace API.Controllers;
 
@@ -31,7 +31,7 @@ public class AgeScoresController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult<string>> Update(AgeScoreUpdateCommand command)
+    public async Task<ActionResult<OperationResult<string>>> Update(AgeScoreUpdateCommand command)
     {
         return await _mediator.Send(command);
     }

@@ -11,6 +11,9 @@ public static class Extensions
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IScoreCalculatorService<int, int>, AgeScoreCalculatorService>();
+
+        services.AddScoped<IScoreCalculatorService<int, int>, JobExperienceScoreCalculatorService>();
+
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         return services;
     }

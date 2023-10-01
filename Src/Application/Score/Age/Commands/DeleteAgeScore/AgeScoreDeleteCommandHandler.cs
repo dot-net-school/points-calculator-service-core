@@ -1,8 +1,8 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Entities.AgeScoreEntity;
+using Domain.Entities;
 using MediatR;
 
-namespace Application.Score.Commands.DeleteAgeScore;
+namespace Application.Score.Age.Commands.DeleteAgeScore;
 
 public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteCommand, string>
 {
