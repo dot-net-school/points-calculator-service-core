@@ -1,21 +1,21 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Score.Age.Commands.CreateAgeScore;
 
 public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateCommand, Guid>
 {
-    private readonly IApplicationDbContext _context;
-    public AgeScoreCreateCommandHandler(IApplicationDbContext context)
+    private readonly IRepository<AgeScore> _repository;
+    public AgeScoreCreateCommandHandler(IRepository<AgeScore> repository)
     {
-        _context = context;
+        _repository = repository;
     }
     public async Task<Guid> Handle(AgeScoreCreateCommand request, CancellationToken cancellationToken)
     {
         Domain.Entities.AgeScore ageScore = new(request.FromAge, request.ToAge, request.Score);
-        _context.AgeScores.Add(ageScore);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await _repository.AddAsync(ageScore);
+        await _repository.SaveChangesAsync();
 
         return ageScore.Id;
     }

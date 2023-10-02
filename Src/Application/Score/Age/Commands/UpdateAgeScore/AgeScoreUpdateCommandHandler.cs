@@ -8,14 +8,14 @@ namespace Application.Score.Age.Commands.UpdateAgeScore;
 
 public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateCommand, OperationResult<string>>
 {
-    private readonly IApplicationDbContext _context;
-    public AgeScoreUpdateCommandHandler(IApplicationDbContext context)
+    private readonly IRepository<AgeScore> _repository;
+    public AgeScoreUpdateCommandHandler(IRepository<AgeScore> repository)
     {
-        _context = context;
+        _repository = repository;
     }
     public async Task<OperationResult<string>> Handle(AgeScoreUpdateCommand request, CancellationToken cancellationToken)
     {
-        var ageScore = await _context.AgeScores.FindAsync(request.Id,cancellationToken);
+        var ageScore = await _repository.GetByIdAsync(request.Id);
 
         if (ageScore is null)
         {
@@ -24,8 +24,8 @@ public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateComman
 
         ageScore.Update(request.FromAge, request.ToAge, request.Score);
 
-        _context.AgeScores.Update(ageScore);
-        await _context.SaveChangesAsync(cancellationToken);
+        _repository.Update(ageScore);
+        await _repository.SaveChangesAsync();
 
         return OperationResult<string>.Failed("AgeScore was updated!", (int)HttpStatusCode.Created);
 
