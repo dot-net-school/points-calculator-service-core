@@ -19,15 +19,11 @@ public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateComman
 
         if (ageScore is null)
         {
-            return OperationResult<string>.Failed(Resource.RecordNotFound, HttpStatusCode.Created);
+            return OperationResult<string>.Failed(Resource.RecordNotFound, HttpStatusCode.NotFound);
         }
-
         ageScore.Update(request.FromAge, request.ToAge, request.Score);
-
         _context.AgeScores.Update(ageScore);
         await _context.SaveChangesAsync(cancellationToken);
-
-        return OperationResult<string>.Failed("AgeScore was updated!", HttpStatusCode.Created);
-
+        return OperationResult<string>.Succeeded("AgeScore was updated!",Resource.Success, HttpStatusCode.OK);
     }
 }

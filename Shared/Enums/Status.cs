@@ -1,7 +1,7 @@
 ﻿namespace Shared.Enums;
 
-public enum Status: byte
+public enum Status : byte
 {
-    Active=0,
-    InActive=1
+    Active = 0,
+    InActive = 1
 }
