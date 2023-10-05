@@ -1,47 +1,58 @@
-﻿using Application.Common.Interfaces;
+﻿#nullable disable
+
+using Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Persistence.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly DbContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly DbSet<TEntity> _dbSet;
 
-    public Repository(DbContext context)
+    public Repository(ApplicationDbContext context)
     {
         _context = context;
         _dbSet = _context.Set<TEntity>();
     }
 
-    public async Task<TEntity> GetByIdAsync(object id)
+    public async Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken)
     {
-        return await _dbSet.FindAsync(id);
+        return await _dbSet.FindAsync(id, cancellationToken);
+    }
+    public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
     public IQueryable<TEntity> GetAll()
     {
         return _dbSet.AsQueryable();
     }
-
-    public async Task AddAsync(TEntity entity)
+    public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
-        await _dbSet.AddAsync(entity);
+        return _context.Set<TEntity>().Where(predicate);
+    }
+    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
+    {
+        await _dbSet.AddAsync(entity, cancellationToken);
     }
 
-    public void  Update(TEntity entity)
+    public void Update(TEntity entity)
     {
         _context.Entry(entity).State = EntityState.Modified;
         _dbSet.Update(entity);
     }
 
-    public void DeleteAsync(TEntity entity)
+    public void Delete(TEntity entity)
     {
         _dbSet.Remove(entity);
     }
 
-    public async Task SaveChangesAsync()
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
+
 }

@@ -1,25 +1,25 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
 public class AgeScoreCalculatorService : IScoreCalculatorService<int, int>
 {
-    private readonly IApplicationDbContext _dbContext;
-    public AgeScoreCalculatorService(IApplicationDbContext dbContext)
+    private readonly IRepository<AgeScore> _repository;
+    public AgeScoreCalculatorService(IRepository<AgeScore> repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
 
     public async Task<int> CalculateScore(int age)
     {
         if (age > 45 || age < 18)
-        { 
-            return 0; 
+        {
+            return 0;
         }
 
-        var ageScore = await _dbContext.AgeScores
-            .Where(x => x.FromAge >= age && x.ToAge >= age)
+        var ageScore = await _repository.Find(x => x.FromAge >= age && x.ToAge >= age)
             .Select(s => s.Score)
             .FirstOrDefaultAsync();
 

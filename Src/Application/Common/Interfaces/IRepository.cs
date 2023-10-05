@@ -3,9 +3,12 @@
 public interface IRepository<TEntity> where TEntity : class
 {
     void Update(TEntity entity);
-    void DeleteAsync(TEntity entity);
-    Task AddAsync(TEntity entity);
+    void Delete(TEntity entity);
+    Task AddAsync(TEntity entity, CancellationToken cancellationToken);
     IQueryable<TEntity> GetAll();
-    Task<TEntity> GetByIdAsync(object id);
-    Task SaveChangesAsync();
+
+    Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken);
+    Task SaveChangesAsync(CancellationToken cancellationToken);
+    Task<TEntity> FirstOrDefaultAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    IQueryable<TEntity> Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
 }

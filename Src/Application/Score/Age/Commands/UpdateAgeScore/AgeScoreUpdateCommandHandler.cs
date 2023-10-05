@@ -15,7 +15,7 @@ public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateComman
     }
     public async Task<OperationResult<string>> Handle(AgeScoreUpdateCommand request, CancellationToken cancellationToken)
     {
-        var ageScore = await _repository.GetByIdAsync(request.Id);
+        var ageScore = await _repository.FirstOrDefaultAsync(x=>x.Id == request.Id, cancellationToken);
 
         if (ageScore is null)
         {
@@ -25,7 +25,7 @@ public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateComman
         ageScore.Update(request.FromAge, request.ToAge, request.Score);
 
         _repository.Update(ageScore);
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return OperationResult<string>.Failed("AgeScore was updated!", (int)HttpStatusCode.Created);
 

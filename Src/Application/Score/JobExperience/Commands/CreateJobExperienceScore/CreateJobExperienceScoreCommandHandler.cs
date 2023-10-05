@@ -6,11 +6,11 @@ namespace Application.Score.JobExperience.Commands.CreateJobExperienceScore;
 
 public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobExperienceScoreCommand, Guid>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<JobExperienceScore> _repository;
 
-    public CreateJobExperienceScoreCommandHandler(IApplicationDbContext context)
+    public CreateJobExperienceScoreCommandHandler(IRepository<JobExperienceScore> repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
     public async Task<Guid> Handle(CreateJobExperienceScoreCommand request, CancellationToken cancellationToken)
@@ -24,9 +24,8 @@ public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobE
 
         };
 
-        _context.JobExperienceScores.Add(jobExperience);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await _repository.AddAsync(jobExperience, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return jobExperience.Id;
     }

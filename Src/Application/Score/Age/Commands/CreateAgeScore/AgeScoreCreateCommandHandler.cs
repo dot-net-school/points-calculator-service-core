@@ -14,8 +14,8 @@ public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateComman
     public async Task<Guid> Handle(AgeScoreCreateCommand request, CancellationToken cancellationToken)
     {
         Domain.Entities.AgeScore ageScore = new(request.FromAge, request.ToAge, request.Score);
-        await _repository.AddAsync(ageScore);
-        await _repository.SaveChangesAsync();
+        await _repository.AddAsync(ageScore, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return ageScore.Id;
     }

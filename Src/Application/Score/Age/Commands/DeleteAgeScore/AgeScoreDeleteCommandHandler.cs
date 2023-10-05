@@ -13,14 +13,14 @@ public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteComman
     }
     public async Task<string> Handle(AgeScoreDeleteCommand request, CancellationToken cancellationToken)
     {
-        AgeScore? ageScore = await _repository.GetByIdAsync(request.Id);
+        AgeScore? ageScore = await _repository.FindByIdAsync(request.Id, cancellationToken);
         if (ageScore is null)
         {
             return "Id is invalid!";
         }
 
-        _repository.DeleteAsync(ageScore);
-        await _repository.SaveChangesAsync();
+        _repository.Delete(ageScore);
+        await _repository.SaveChangesAsync(cancellationToken);
         return "ageScore was deleted!";
     }
 }

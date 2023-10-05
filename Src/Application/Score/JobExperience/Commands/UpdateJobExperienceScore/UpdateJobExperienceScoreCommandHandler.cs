@@ -1,23 +1,22 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Shared;
 
 namespace Application.Score.JobExperience.Commands.UpdateJobExperienceScore;
 
 public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobExperienceScoreCommand, string>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<JobExperienceScore> _repository;
 
-    public UpdateJobExperienceScoreCommandHandler(IApplicationDbContext context)
+    public UpdateJobExperienceScoreCommandHandler(IRepository<JobExperienceScore> repository)
     {
-        _context = context;
+        _repository = repository;
     }
     public async Task<string> Handle(UpdateJobExperienceScoreCommand request, CancellationToken cancellationToken)
     {
-        var jobExperienceScore = await _context.JobExperienceScores
-            .Where(x => x.Id == request.Id)
-            .FirstOrDefaultAsync(cancellationToken);
+        var jobExperienceScore = await _repository
+            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (jobExperienceScore == null)
         {
@@ -25,8 +24,8 @@ public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobE
         }
 
         jobExperienceScore.Update(request.MinExperience, request.MaxExperience, request.Score);
-        _context.JobExperienceScores.Update(jobExperienceScore);
-        await _context.SaveChangesAsync(cancellationToken);
+        _repository.Update(jobExperienceScore);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return OperationResult<string>.Succeeded("200").Data;
     }
