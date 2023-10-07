@@ -18,4 +18,5 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     // }
     public DbSet<AgeScore> AgeScores { get; set; }
     public DbSet<JobExperienceScore> JobExperienceScores { get; set; }
+    public DbSet<MaritalStatusScore> MaritalStatusScores { get; set; }
 }
