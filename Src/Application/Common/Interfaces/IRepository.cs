@@ -1,4 +1,6 @@
-﻿namespace Application.Common.Interfaces;
+﻿using System.Linq.Expressions;
+
+namespace Application.Common.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : class
 {
@@ -9,6 +11,6 @@ public interface IRepository<TEntity> where TEntity : class
 
     Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken);
     Task SaveChangesAsync(CancellationToken cancellationToken);
-    Task<TEntity> FirstOrDefaultAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
-    IQueryable<TEntity> Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
+    Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 }

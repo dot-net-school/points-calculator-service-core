@@ -8,17 +8,17 @@ namespace Application.Score.JobExperience.Queries;
 
 public class GetJobExperienceScoreQueryHandler : IRequestHandler<GetJobExperienceScoreQuery, List<GetJobExperienceScoreDto>>
 {
-    private readonly IRepository<JobExperienceScore> _repository;
+    private readonly IRepository<JobExperienceScore> _jobExperienceScoreRepository;
 
-    public GetJobExperienceScoreQueryHandler(IRepository<JobExperienceScore> repository)
+    public GetJobExperienceScoreQueryHandler(IRepository<JobExperienceScore> jobExperienceScoreRepository)
     {
-        _repository = repository;
+        _jobExperienceScoreRepository = jobExperienceScoreRepository;
     }
 
 
     public async Task<List<GetJobExperienceScoreDto>> Handle(GetJobExperienceScoreQuery request, CancellationToken cancellationToken)
     {
-        return (await _repository.GetAll().ToListAsync(cancellationToken)).Adapt<List<GetJobExperienceScoreDto>>();
+        return (await _jobExperienceScoreRepository.GetAll().ToListAsync(cancellationToken)).Adapt<List<GetJobExperienceScoreDto>>();
     }
 
 }

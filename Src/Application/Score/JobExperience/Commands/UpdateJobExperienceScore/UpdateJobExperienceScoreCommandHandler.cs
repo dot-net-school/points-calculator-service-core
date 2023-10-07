@@ -7,15 +7,15 @@ namespace Application.Score.JobExperience.Commands.UpdateJobExperienceScore;
 
 public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobExperienceScoreCommand, string>
 {
-    private readonly IRepository<JobExperienceScore> _repository;
+    private readonly IRepository<JobExperienceScore> _jobExperienceScoreRepository;
 
-    public UpdateJobExperienceScoreCommandHandler(IRepository<JobExperienceScore> repository)
+    public UpdateJobExperienceScoreCommandHandler(IRepository<JobExperienceScore> jobExperienceScoreRepository)
     {
-        _repository = repository;
+        _jobExperienceScoreRepository = jobExperienceScoreRepository;
     }
     public async Task<string> Handle(UpdateJobExperienceScoreCommand request, CancellationToken cancellationToken)
     {
-        var jobExperienceScore = await _repository
+        var jobExperienceScore = await _jobExperienceScoreRepository
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (jobExperienceScore == null)
@@ -24,8 +24,8 @@ public class UpdateJobExperienceScoreCommandHandler : IRequestHandler<UpdateJobE
         }
 
         jobExperienceScore.Update(request.MinExperience, request.MaxExperience, request.Score);
-        _repository.Update(jobExperienceScore);
-        await _repository.SaveChangesAsync(cancellationToken);
+        _jobExperienceScoreRepository.Update(jobExperienceScore);
+        await _jobExperienceScoreRepository.SaveChangesAsync(cancellationToken);
 
         return OperationResult<string>.Succeeded("200").Data;
     }

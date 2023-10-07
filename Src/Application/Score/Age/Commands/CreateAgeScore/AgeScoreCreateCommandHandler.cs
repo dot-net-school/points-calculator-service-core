@@ -6,16 +6,16 @@ namespace Application.Score.Age.Commands.CreateAgeScore;
 
 public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateCommand, Guid>
 {
-    private readonly IRepository<AgeScore> _repository;
-    public AgeScoreCreateCommandHandler(IRepository<AgeScore> repository)
+    private readonly IRepository<AgeScore> _ageScoreRepository;
+    public AgeScoreCreateCommandHandler(IRepository<AgeScore> ageScoreRepository)
     {
-        _repository = repository;
+        _ageScoreRepository = ageScoreRepository;
     }
     public async Task<Guid> Handle(AgeScoreCreateCommand request, CancellationToken cancellationToken)
     {
-        Domain.Entities.AgeScore ageScore = new(request.FromAge, request.ToAge, request.Score);
-        await _repository.AddAsync(ageScore, cancellationToken);
-        await _repository.SaveChangesAsync(cancellationToken);
+        AgeScore ageScore = new(request.FromAge, request.ToAge, request.Score);
+        await _ageScoreRepository.AddAsync(ageScore, cancellationToken);
+        await _ageScoreRepository.SaveChangesAsync(cancellationToken);
 
         return ageScore.Id;
     }

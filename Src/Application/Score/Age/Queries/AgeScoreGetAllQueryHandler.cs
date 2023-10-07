@@ -7,13 +7,13 @@ namespace Application.Score.Age.Queries;
 
 public class AgeScoreGetAllQueryHandler : IRequestHandler<AgeScoreGetAllQuery, List<AgeScoreDto>>
 {
-    private readonly IRepository<AgeScore> _repository;
-    public AgeScoreGetAllQueryHandler(IRepository<AgeScore> repository)
+    private readonly IRepository<AgeScore> _ageScoreRepository;
+    public AgeScoreGetAllQueryHandler(IRepository<AgeScore> ageScoreRepository)
     {
-        _repository = repository;
+        _ageScoreRepository = ageScoreRepository;
     }
     public async Task<List<AgeScoreDto>> Handle(AgeScoreGetAllQuery request, CancellationToken cancellationToken)
     {
-        return _repository.GetAll().Adapt<List<AgeScoreDto>>();
+        return _ageScoreRepository.GetAll().Adapt<List<AgeScoreDto>>();
     }
 }
