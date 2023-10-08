@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Application.Score.JobExperience.Commands.DeleteJobExperienceScore;
+using Domain.Entities;
 using MediatR;
 using Shared;
 
@@ -7,24 +7,24 @@ namespace Application.Score.JobExperience.Commands.DeleteJobExperienceScore;
 
 public class DeleteJobExperienceScoreCommandHandler : IRequestHandler<DeleteJobExperienceScoreCommand, string>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<JobExperienceScore> _jobExperienceScoreRepository;
 
-    public DeleteJobExperienceScoreCommandHandler(IApplicationDbContext context)
+    public DeleteJobExperienceScoreCommandHandler(IRepository<JobExperienceScore> jobExperienceScoreRepository)
     {
-        _context = context;
+        _jobExperienceScoreRepository = jobExperienceScoreRepository;
     }
 
     public async Task<string> Handle(DeleteJobExperienceScoreCommand request, CancellationToken cancellationToken)
     {
-        Domain.Entities.JobExperienceScore? jobExperienceScore = await _context.JobExperienceScores.FindAsync(request.Id, cancellationToken);
+        JobExperienceScore? jobExperienceScore = await _jobExperienceScoreRepository.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (jobExperienceScore == null)
         {
             return OperationResult<string>.Failed(Resource.RecordNotFound).Data;
         }
 
-        _context.JobExperienceScores.Remove(jobExperienceScore);
-        await _context.SaveChangesAsync(cancellationToken);
+        _jobExperienceScoreRepository.Delete(jobExperienceScore);
+        await _jobExperienceScoreRepository.SaveChangesAsync(cancellationToken);
 
         return OperationResult<string>.Succeeded("200").Data;
     }

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,17 +8,17 @@ namespace Application.Score.JobExperience.Queries;
 
 public class GetJobExperienceScoreQueryHandler : IRequestHandler<GetJobExperienceScoreQuery, List<GetJobExperienceScoreDto>>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<JobExperienceScore> _jobExperienceScoreRepository;
 
-    public GetJobExperienceScoreQueryHandler(IApplicationDbContext context)
+    public GetJobExperienceScoreQueryHandler(IRepository<JobExperienceScore> jobExperienceScoreRepository)
     {
-        _context = context;
+        _jobExperienceScoreRepository = jobExperienceScoreRepository;
     }
 
 
     public async Task<List<GetJobExperienceScoreDto>> Handle(GetJobExperienceScoreQuery request, CancellationToken cancellationToken)
     {
-        return (await _context.JobExperienceScores.ToListAsync(cancellationToken: cancellationToken)).Adapt<List<GetJobExperienceScoreDto>>();
+        return (await _jobExperienceScoreRepository.GetAll().ToListAsync(cancellationToken)).Adapt<List<GetJobExperienceScoreDto>>();
     }
 
 }

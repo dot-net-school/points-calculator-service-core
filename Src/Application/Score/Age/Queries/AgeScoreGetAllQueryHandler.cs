@@ -1,19 +1,19 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using Mapster;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Score.Age.Queries;
 
 public class AgeScoreGetAllQueryHandler : IRequestHandler<AgeScoreGetAllQuery, List<AgeScoreDto>>
 {
-    private readonly IApplicationDbContext _context;
-    public AgeScoreGetAllQueryHandler(IApplicationDbContext context)
+    private readonly IRepository<AgeScore> _ageScoreRepository;
+    public AgeScoreGetAllQueryHandler(IRepository<AgeScore> ageScoreRepository)
     {
-        _context = context;
+        _ageScoreRepository = ageScoreRepository;
     }
     public async Task<List<AgeScoreDto>> Handle(AgeScoreGetAllQuery request, CancellationToken cancellationToken)
     {
-        return (await _context.AgeScores.ToListAsync(cancellationToken: cancellationToken)).Adapt<List<AgeScoreDto>>();
+        return _ageScoreRepository.GetAll().Adapt<List<AgeScoreDto>>();
     }
 }
