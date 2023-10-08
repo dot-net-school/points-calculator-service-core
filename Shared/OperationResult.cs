@@ -1,10 +1,13 @@
-﻿namespace Shared;
+﻿using System.Net;
+
+namespace Shared;
 
     public class OperationResult<T>
     {
         public bool IsSucceeded { get; private set; }
         public string Message { get; private set; }
-        public int HttpStatusCode { get; private set; }
+        public HttpStatusCode HttpStatusCode { get; private set; }
+
         public T Data { get; private set; }
 
         private OperationResult()
@@ -12,10 +15,10 @@
             IsSucceeded = false;
             Message = string.Empty;
             HttpStatusCode = 0;
-            Data = default(T);
+            Data = default;
         }
 
-        public static OperationResult<T> Succeeded(T data, string message = "Mission accomplished.", int httpStatusCode = 200)
+        public static OperationResult<T> Succeeded(T data, string message = "Mission accomplished.",HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
         {
             return new OperationResult<T>
             {
@@ -26,7 +29,7 @@
             };
         }
 
-        public static OperationResult<T> Failed(string message, int httpStatusCode = 400)
+        public static OperationResult<T> Failed(string message, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
         {
             return new OperationResult<T>
             {

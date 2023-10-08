@@ -123,4 +123,19 @@
   <data name="RecordNotFound" xml:space="preserve">
     <value>The record with the requested information was not found. Please try again.</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>Operation was successful</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>There is an error in server side</value>
+  </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>The parameters sent are not valid</value>
+  </data>
+  <data name="LogicError" xml:space="preserve">
+    <value>An Logic Error Happened</value>
+  </data>
+  <data name="UnAuthorized" xml:space="preserve">
+    <value>UnAuthorized Error</value>
+  </data>
 </root>
