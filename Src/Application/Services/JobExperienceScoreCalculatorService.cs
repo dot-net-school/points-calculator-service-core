@@ -1,15 +1,16 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
 public class JobExperienceScoreCalculatorService : IScoreCalculatorService<int, int>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<JobExperienceScore> _repository;
 
-    public JobExperienceScoreCalculatorService(IApplicationDbContext context)
+    public JobExperienceScoreCalculatorService( IRepository<JobExperienceScore> repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
     public async Task<int> CalculateScore(int jobExperience)
@@ -19,8 +20,7 @@ public class JobExperienceScoreCalculatorService : IScoreCalculatorService<int, 
             return 15;
         }
 
-        var jobExperienceScore = await _context.JobExperienceScores
-            .Where(x => x.MinExperience >= jobExperience && x.MaxExperience >= jobExperience)
+        var jobExperienceScore = await _repository.Find(x => x.MinExperience >= jobExperience && x.MaxExperience >= jobExperience)
             .Select(s => s.Score)
             .FirstOrDefaultAsync();
 
