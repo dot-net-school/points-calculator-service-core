@@ -8,11 +8,11 @@ namespace Application.Score.MaritalStatus.Commands.CreateMaritalStatusScore;
 
 public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMaritalStatusScoreCommand, OperationResult<string>>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
 
-    public CreateMaritalStatusScoreCommandHandler(IApplicationDbContext context)
+    public CreateMaritalStatusScoreCommandHandler(IRepository<MaritalStatusScore> maritalStatusScoreRepository)
     {
-        _context = context;
+        _maritalStatusScoreRepository = maritalStatusScoreRepository;
     }
 
     public async Task<OperationResult<string>> Handle(CreateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
@@ -23,19 +23,22 @@ public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMari
             Score = request.Score
         };
 
-        _context.MaritalStatusScores.Add(maritalStatus);
+        await _maritalStatusScoreRepository.AddAsync(maritalStatus,cancellationToken);
 
-        var rowsAffected = await _context.SaveChangesAsync(cancellationToken);
+        await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
 
-        if (rowsAffected > 0 )
+        var savedRecord = await _maritalStatusScoreRepository.FirstOrDefaultAsync(
+            x => x.Id == maritalStatus.Id, cancellationToken);
+
+        if (savedRecord != null)
         {
             return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
         }
         else
         {
-            return OperationResult<string>.Failed("Record Not Save", (int)HttpStatusCode.Created);
+            return OperationResult<string>.Failed(Resource.Fail, HttpStatusCode.Created);
         }
 
-        
+
     }
 }

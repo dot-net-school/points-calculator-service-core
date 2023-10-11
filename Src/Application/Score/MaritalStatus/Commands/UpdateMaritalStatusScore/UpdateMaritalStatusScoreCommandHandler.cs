@@ -1,45 +1,46 @@
 ﻿using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using Application.Common.Interfaces;
+using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Shared;
 
 namespace Application.Score.MaritalStatus.Commands.UpdateMaritalStatusScore;
 
 public class UpdateMaritalStatusScoreCommandHandler : IRequestHandler<UpdateMaritalStatusScoreCommand, OperationResult<string>>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
 
-    public UpdateMaritalStatusScoreCommandHandler(IApplicationDbContext context)
+    public UpdateMaritalStatusScoreCommandHandler(IRepository<MaritalStatusScore> maritalStatusScoreRepository)
     {
-        _context = context;
+        _maritalStatusScoreRepository = maritalStatusScoreRepository;
     }
 
     public async Task<OperationResult<string>> Handle(UpdateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
     {
-        var maritalStatus = await _context.MaritalStatusScores
-            .Where(x => x.Id == request.Id)
-            .FirstOrDefaultAsync(cancellationToken);
+        var maritalStatus = await _maritalStatusScoreRepository
+            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (maritalStatus is null)
         {
             return OperationResult<string>.Failed(Resource.RecordNotFound);
         }
 
-        _context.MaritalStatusScores.Update(maritalStatus);
+        _maritalStatusScoreRepository.Update(maritalStatus);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
 
-        var rowsAffected = await _context.SaveChangesAsync(cancellationToken);
+        var isRecordUpdated = await _maritalStatusScoreRepository
+            .AnyAsync(x => x.Score != maritalStatus.Score, cancellationToken);
 
-        if (rowsAffected > 0)
+        if (isRecordUpdated)
         {
             return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
         }
         else
         {
-            return OperationResult<string>.Failed("Record Not Save", (int)HttpStatusCode.Created);
+            return OperationResult<string>.Failed(Resource.Fail);
+
         }
     }
+
 }

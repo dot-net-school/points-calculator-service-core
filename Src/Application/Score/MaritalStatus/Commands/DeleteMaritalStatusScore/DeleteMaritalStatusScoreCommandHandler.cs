@@ -2,40 +2,43 @@
 using MediatR;
 using Shared;
 using System.Net;
+using Domain.Entities;
 
 namespace Application.Score.MaritalStatus.Commands.DeleteMaritalStatusScore;
 
 public class
     DeleteMaritalStatusScoreCommandHandler : IRequestHandler<DeleteMaritalStatusScoreCommand, OperationResult<string>>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
 
-    public DeleteMaritalStatusScoreCommandHandler(IApplicationDbContext context)
+    public DeleteMaritalStatusScoreCommandHandler(IRepository<MaritalStatusScore> maritalStatusScoreRepository)
     {
-        _context = context;
+        _maritalStatusScoreRepository = maritalStatusScoreRepository;
     }
 
-    public async Task<OperationResult<string>> Handle(DeleteMaritalStatusScoreCommand request,
-        CancellationToken cancellationToken)
+    public async Task<OperationResult<string>> Handle(DeleteMaritalStatusScoreCommand request, CancellationToken cancellationToken)
     {
-        var maritalStatus = await _context.MaritalStatusScores.FindAsync(request.Id, cancellationToken);
+        var maritalStatus = await _maritalStatusScoreRepository.FindByIdAsync(request.Id, cancellationToken);
 
         if (maritalStatus is null)
         {
             return OperationResult<string>.Failed(Resource.RecordNotFound);
         }
 
-        _context.MaritalStatusScores.Remove(maritalStatus);
+        _maritalStatusScoreRepository.Delete(maritalStatus);
 
-        var rowsAffected = await _context.SaveChangesAsync(cancellationToken);
 
-        if (rowsAffected > 0)
+        await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
+
+        var isRecordDeleted = await _maritalStatusScoreRepository.ExistsAsync(request.Id, cancellationToken);
+
+        if (isRecordDeleted)
         {
-            return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
+            return OperationResult<string>.Failed(Resource.Fail);
         }
         else
         {
-            return OperationResult<string>.Failed("Record Not Remove", (int)HttpStatusCode.Created);
+            return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
         }
     }
 }
