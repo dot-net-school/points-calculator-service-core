@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Application.Score.MaritalStatus.Commands.CreateMaritalStatusScore;
 
-public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMaritalStatusScoreCommand, OperationResult<string>>
+public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMaritalStatusScoreCommand, OperationResult<Guid>>
 {
     private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
 
@@ -15,7 +15,7 @@ public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMari
         _maritalStatusScoreRepository = maritalStatusScoreRepository;
     }
 
-    public async Task<OperationResult<string>> Handle(CreateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guid>> Handle(CreateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
     {
         var maritalStatus = new MaritalStatusScore
         {
@@ -32,11 +32,11 @@ public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMari
 
         if (savedRecord != null)
         {
-            return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
+            return OperationResult<Guid>.Succeeded(maritalStatus.Id, ((int)HttpStatusCode.Created).ToString());
         }
         else
         {
-            return OperationResult<string>.Failed(Resource.Fail, HttpStatusCode.Created);
+            return OperationResult<Guid>.Failed(Resource.Fail, HttpStatusCode.Created);
         }
 
 

@@ -3,4 +3,4 @@ using Shared;
 
 namespace Application.Score.MaritalStatus.Commands.CreateMaritalStatusScore;
 
-public record CreateMaritalStatusScoreCommand(string MaritalStatus, int Score) : IRequest<OperationResult<string>>;
+public record CreateMaritalStatusScoreCommand(string MaritalStatus, int Score) : IRequest<OperationResult<Guid>>;
