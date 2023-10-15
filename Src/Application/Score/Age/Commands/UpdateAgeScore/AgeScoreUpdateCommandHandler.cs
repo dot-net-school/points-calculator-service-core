@@ -8,26 +8,23 @@ namespace Application.Score.Age.Commands.UpdateAgeScore;
 
 public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateCommand, OperationResult<string>>
 {
-    private readonly IApplicationDbContext _context;
-    public AgeScoreUpdateCommandHandler(IApplicationDbContext context)
+    private readonly IRepository<AgeScore> _ageScoreRepository;
+    public AgeScoreUpdateCommandHandler(IRepository<AgeScore> repository)
     {
-        _context = context;
+        _ageScoreRepository = repository;
     }
     public async Task<OperationResult<string>> Handle(AgeScoreUpdateCommand request, CancellationToken cancellationToken)
     {
-        var ageScore = await _context.AgeScores.FindAsync(request.Id,cancellationToken);
+        var ageScore = await _ageScoreRepository.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (ageScore is null)
         {
-            return OperationResult<string>.Failed(Resource.RecordNotFound, HttpStatusCode.Created);
+            return OperationResult<string>.Failed(Resource.RecordNotFound, HttpStatusCode.NotFound);
         }
+        _ageScoreRepository.Update(ageScore);
+        await _ageScoreRepository.SaveChangesAsync(cancellationToken);
 
-        ageScore.Update(request.FromAge, request.ToAge, request.Score);
-
-        _context.AgeScores.Update(ageScore);
-        await _context.SaveChangesAsync(cancellationToken);
-
-        return OperationResult<string>.Failed("AgeScore was updated!", HttpStatusCode.Created);
+        return OperationResult<string>.Succeeded("AgeScore was updated!",Resource.Success, HttpStatusCode.OK);
 
     }
 }
