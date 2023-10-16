@@ -35,11 +35,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return _context.Set<TEntity>().Where(predicate);
     }
 
-    public async Task<bool> ExistsAsync(object id, CancellationToken cancellationToken)
+    /*public async Task<bool> ExistsAsync(object id, CancellationToken cancellationToken)
     {
         var entity = await FindByIdAsync(id, cancellationToken);
         return entity != null;
-    }
+    }*/
 
     public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {

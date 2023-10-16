@@ -32,7 +32,7 @@ public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMari
 
         if (savedRecord != null)
         {
-            return OperationResult<Guid>.Succeeded(maritalStatus.Id, ((int)HttpStatusCode.Created).ToString());
+            return OperationResult<Guid>.Succeeded(maritalStatus.Id, (HttpStatusCode.Created).ToString());
         }
         else
         {

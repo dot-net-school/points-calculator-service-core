@@ -25,6 +25,7 @@ public class UpdateMaritalStatusScoreCommandHandler : IRequestHandler<UpdateMari
             return OperationResult<string>.Failed(Resource.RecordNotFound);
         }
 
+        maritalStatus.Update(request.Score);
         _maritalStatusScoreRepository.Update(maritalStatus);
 
         await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
@@ -34,7 +35,7 @@ public class UpdateMaritalStatusScoreCommandHandler : IRequestHandler<UpdateMari
 
         if (isRecordUpdated)
         {
-            return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
+            return OperationResult<string>.Succeeded((HttpStatusCode.Created).ToString());
         }
         else
         {

@@ -30,7 +30,7 @@ public class
 
         await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
 
-        var isRecordDeleted = await _maritalStatusScoreRepository.ExistsAsync(request.Id, cancellationToken);
+        var isRecordDeleted = await _maritalStatusScoreRepository.AnyAsync(x => x.Id == request.Id, cancellationToken);
 
         if (isRecordDeleted)
         {
@@ -38,7 +38,7 @@ public class
         }
         else
         {
-            return OperationResult<string>.Succeeded(((int)HttpStatusCode.Created).ToString());
+            return OperationResult<string>.Succeeded((HttpStatusCode.Created).ToString());
         }
     }
 }
