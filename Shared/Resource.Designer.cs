@@ -87,6 +87,15 @@ namespace Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No records found..
+        /// </summary>
+        public static string NoRecords {
+            get {
+                return ResourceManager.GetString("NoRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The record with the requested information was not found. Please try again..
         /// </summary>
         public static string RecordNotFound {

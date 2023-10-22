@@ -138,4 +138,7 @@
   <data name="UnAuthorized" xml:space="preserve">
     <value>UnAuthorized Error</value>
   </data>
+  <data name="NoRecords" xml:space="preserve">
+    <value>No records found.</value>
+  </data>
 </root>
