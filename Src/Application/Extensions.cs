@@ -13,6 +13,7 @@ public static class Extensions
         services.AddScoped<IScoreCalculatorService<int, int>, AgeScoreCalculatorService>();
 
         services.AddScoped<IScoreCalculatorService<int, int>, JobExperienceScoreCalculatorService>();
+        services.AddScoped<IScoreCalculatorService<int, int>, MaritalStatusScoreCalculatorService>();
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
