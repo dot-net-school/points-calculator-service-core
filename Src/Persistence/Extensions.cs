@@ -1,7 +1,12 @@
-﻿using Application.Common.Interfaces;
+using Application.Common;
+using Application.Common.Interfaces;
+using Domain.Common;
+using Application.Common.Interfaces;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.UnitOfWork;
 using Persistence.Repositories;
 
 namespace Persistence;
@@ -16,6 +21,10 @@ public static class Extensions
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<ILanguageCertificateRepository, LanguageCertificateRepository>();
+        services.AddScoped<ILanguageScoreRepository, LanguageScoreRepository>();
+        services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
         return services;
+
     }
 }
