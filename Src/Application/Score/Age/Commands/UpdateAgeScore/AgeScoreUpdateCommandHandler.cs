@@ -3,28 +3,29 @@ using Domain.Entities;
 using MediatR;
 using Shared;
 using System.Net;
+using Application.Common;
 
 namespace Application.Score.Age.Commands.UpdateAgeScore;
 
-public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateCommand, OperationResult<string>>
+public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateCommand, OperationResult<int>>
 {
     private readonly IRepository<AgeScore> _ageScoreRepository;
-    public AgeScoreUpdateCommandHandler(IRepository<AgeScore> repository)
+    private readonly IApplicationUnitOfWork _unitOfWork;
+
+    public AgeScoreUpdateCommandHandler(IApplicationUnitOfWork unitOfWork,IRepository<AgeScore> repository)
     {
         _ageScoreRepository = repository;
+        _unitOfWork = unitOfWork;
     }
-    public async Task<OperationResult<string>> Handle(AgeScoreUpdateCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<int>> Handle(AgeScoreUpdateCommand request, CancellationToken cancellationToken)
     {
         var ageScore = await _ageScoreRepository.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (ageScore is null)
         {
-            return OperationResult<string>.Failed(Resource.RecordNotFound, HttpStatusCode.NotFound);
+            return OperationResult<int>.Failed(Resource.RecordNotFound, HttpStatusCode.NotFound);
         }
         _ageScoreRepository.Update(ageScore);
-        await _ageScoreRepository.SaveChangesAsync(cancellationToken);
-
-        return OperationResult<string>.Succeeded("AgeScore was updated!",Resource.Success, HttpStatusCode.OK);
-
+        return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
     }
 }

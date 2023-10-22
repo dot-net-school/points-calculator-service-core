@@ -1,4 +1,5 @@
-﻿using Application.Score.Age.Commands.CreateAgeScore;
+﻿using API.Filters;
+using Application.Score.Age.Commands.CreateAgeScore;
 using Application.Score.Age.Commands.DeleteAgeScore;
 using Application.Score.Age.Commands.UpdateAgeScore;
 using Application.Score.Age.Queries;
@@ -10,9 +11,11 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[ValidateModelState]
 public class AgeScoresController : ControllerBase
 {
     private readonly IMediator _mediator;
+
     public AgeScoresController(IMediator mediator)
     {
         _mediator = mediator;
@@ -21,23 +24,23 @@ public class AgeScoresController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<AgeScoreDto>>> GetAll()
     {
-        return await _mediator.Send(new AgeScoreGetAllQuery()); ;
+        return await _mediator.Send(new AgeScoreGetAllQuery());
     }
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> Create(AgeScoreCreateCommand command)
+    public async Task<OperationResult<int>> Create(AgeScoreCreateCommand command)
     {
         return await _mediator.Send(command);
     }
 
     [HttpPut]
-    public async Task<ActionResult<OperationResult<string>>> Update(AgeScoreUpdateCommand command)
+    public async Task<OperationResult<int>> Update(AgeScoreUpdateCommand command)
     {
         return await _mediator.Send(command);
     }
 
     [HttpDelete("{Id}")]
-    public async Task<ActionResult<string>> Delete(Guid Id)
+    public async Task<OperationResult<int>> Delete(Guid Id)
     {
         return await _mediator.Send(new AgeScoreDeleteCommand(Id));
     }

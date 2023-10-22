@@ -1,26 +1,34 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Net;
+using Application.Common;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
+using Shared;
 
 namespace Application.Score.Age.Commands.DeleteAgeScore;
 
-public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteCommand, string>
+public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteCommand, OperationResult<int>>
 {
     private readonly IRepository<AgeScore> _ageScoreRepository;
-    public AgeScoreDeleteCommandHandler(IRepository<AgeScore> ageScoreRepository)
+    private readonly IApplicationUnitOfWork _unitOfWork;
+
+   // private readonly IApplicationDbContext _context;
+    public AgeScoreDeleteCommandHandler(IRepository<AgeScore> ageScoreRepository,IApplicationUnitOfWork unitOfWork)
     {
         _ageScoreRepository = ageScoreRepository;
+        _unitOfWork = unitOfWork;
+        //_context = context;
     }
-    public async Task<string> Handle(AgeScoreDeleteCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<int>> Handle(AgeScoreDeleteCommand request, CancellationToken cancellationToken)
     {
         AgeScore? ageScore = await _ageScoreRepository.FindByIdAsync(request.Id, cancellationToken);
         if (ageScore is null)
         {
-            return "Id is invalid!";
+            return OperationResult<int>.Failed(Resource.RecordNotFound,HttpStatusCode.NotFound);
         }
 
         _ageScoreRepository.Delete(ageScore);
         await _ageScoreRepository.SaveChangesAsync(cancellationToken);
-        return "ageScore was deleted!";
+        return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
     }
 }
