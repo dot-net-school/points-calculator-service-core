@@ -1,14 +1,17 @@
-﻿using Application.Score.JobExperience.Commands.CreateJobExperienceScore;
+﻿using API.Filters;
+using Application.Score.JobExperience.Commands.CreateJobExperienceScore;
 using Application.Score.JobExperience.Commands.DeleteJobExperienceScore;
 using Application.Score.JobExperience.Commands.UpdateJobExperienceScore;
 using Application.Score.JobExperience.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[ValidateModelState]
 public class JobExperienceScoreController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -24,19 +27,19 @@ public class JobExperienceScoreController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> Create(CreateJobExperienceScoreCommand command)
+    public async Task<OperationResult<int>> Create(CreateJobExperienceScoreCommand command)
     {
         return await _mediator.Send(command);
     }
 
     [HttpPut]
-    public async Task<ActionResult<string>> Update(UpdateJobExperienceScoreCommand command)
+    public async Task<OperationResult<int>> Update(UpdateJobExperienceScoreCommand command)
     {
         return await _mediator.Send(command);
     }
 
     [HttpDelete("{Id}")]
-    public async Task<ActionResult<string>> Delete(Guid Id)
+    public async Task<OperationResult<int>> Delete(Guid Id)
     {
         return await _mediator.Send(new DeleteJobExperienceScoreCommand(Id));
     }

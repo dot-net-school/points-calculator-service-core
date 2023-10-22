@@ -1,8 +1,9 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Common;
 
-public class JobExperienceScore
+namespace Domain.Entities;
+
+public class JobExperienceScore : BaseEntity
 {
-    public Guid Id { get; set; }
     public int MinExperience { get; set; }
     public int MaxExperience { get; set; }
     public int Score { get; set; }
