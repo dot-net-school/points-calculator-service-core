@@ -3,10 +3,11 @@
 using Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Domain.Common;
 
 namespace Persistence.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
     private readonly ApplicationDbContext _context;
     private readonly DbSet<TEntity> _dbSet;
@@ -17,24 +18,31 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _dbSet = _context.Set<TEntity>();
     }
 
-    public async Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken)
+    public async Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken=default)
     {
         return await _dbSet.FindAsync(id, cancellationToken);
     }
-    public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken=default)
     {
         return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+    }
+
+    public async Task<TEntity> FirstOrDefaultAsNoTrackingAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken=default)
+    {
+        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
     public IQueryable<TEntity> GetAll()
     {
         return _dbSet.AsQueryable();
     }
+    //TODO its have problems like leaky Abstraction and data leak to other layers: like add .ToListAsync() to end of it
+    //TODO DBSet its self is generic repository itself and we add another one layer on top of it
     public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
         return _context.Set<TEntity>().Where(predicate);
     }
-    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken=default)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
     }
@@ -50,7 +58,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _dbSet.Remove(entity);
     }
 
-    public async Task SaveChangesAsync(CancellationToken cancellationToken)
+    public async Task SaveChangesAsync(CancellationToken cancellationToken=default)
     {
         await _context.SaveChangesAsync(cancellationToken);
     }
