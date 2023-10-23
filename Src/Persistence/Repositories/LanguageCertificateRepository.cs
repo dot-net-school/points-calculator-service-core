@@ -51,7 +51,7 @@ internal sealed class LanguageCertificateRepository : ILanguageCertificateReposi
             .FirstOrDefaultAsync(lc => lc.Id == id, cancellationToken);
     }
 
-    public async Task<ReadOnlyCollection<LanguageCertification>> GetAllWithScoreAsync(
+    public async Task<IReadOnlyList<LanguageCertification>> GetAllWithScoreAsync(
         CancellationToken cancellationToken = default)
     {
         var result = await _context.LanguageCertifications

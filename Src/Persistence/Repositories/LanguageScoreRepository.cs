@@ -38,7 +38,7 @@ internal sealed class LanguageScoreRepository : ILanguageScoreRepository
         _context.LanguageScores.Remove(languageCertificationScore);
     }
 
-    public async Task<ReadOnlyCollection<LanguageCertificationScore>> GetAllScoresWithCertification(
+    public async Task<IReadOnlyList<LanguageCertificationScore>> GetAllScoresWithCertification(
         CancellationToken cancellationToken = default)
     {
         var result = await  _context.LanguageScores
