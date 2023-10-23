@@ -141,4 +141,7 @@
   <data name="NoRecords" xml:space="preserve">
     <value>No records found.</value>
   </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Operation was fail</value>
+  </data>
 </root>

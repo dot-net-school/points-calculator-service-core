@@ -43,6 +43,19 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return _context.Set<TEntity>().Where(predicate);
     }
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken=default)
+
+    /*public async Task<bool> ExistsAsync(object id, CancellationToken cancellationToken)
+    {
+        var entity = await FindByIdAsync(id, cancellationToken);
+        return entity != null;
+    }*/
+
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await _context.Set<TEntity>().AnyAsync(predicate, cancellationToken);
+    }
+
+    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
     }

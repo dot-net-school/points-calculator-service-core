@@ -14,6 +14,11 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken);
     Task SaveChangesAsync(CancellationToken cancellationToken);
     Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+
+    //Task<bool> ExistsAsync(object id, CancellationToken cancellationToken);
+    Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+
     Task<TEntity> FirstOrDefaultAsNoTrackingAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
 
 }
