@@ -12,35 +12,28 @@ public sealed class LanguageCertificationScore:BaseEntity
     //for NAATI CCL its nullable
     //TODO it can become valueObject?
     public string? Mark { get; private set; }
-    public bool? IsActive { get; private set; }
+    public bool IsActive { get; private set; }
     [Required]
     public Guid LanguageCertificationId { get; set; }
     //TODO place for ensure language certification is exist in application layer is good approach?
     public LanguageCertification LanguageCertification { get; set; } = null!;
 
    //TODO how about to make LanguageCertification nullable? and LanguageCertificationId required?  for make constructor smaller but in service layer we will be assure that LanguageCertification is exist in db
-    // public LanguageCertificationScore(Score score, string? mark, Guid languageCertificationId,
-    //     bool? isActive)
-    // {
-    //     Score = score;
-    //     Mark = mark;
-    //     LanguageCertificationId = languageCertificationId;
-    //     IsActive = isActive.HasValue && isActive.Value;
-    // }
+    
     
     public LanguageCertificationScore(Score score, string? mark, Guid languageCertificationId,
-        bool? isActive) : this(mark, languageCertificationId,isActive)
+        bool isActive=false) : this(mark, languageCertificationId,isActive)
     {
         Score = score;
     }
     /// <summary>
     /// EF constructor
     /// </summary>
-    private LanguageCertificationScore(string? mark, Guid languageCertificationId,bool? isActive)
+    private LanguageCertificationScore(string? mark, Guid languageCertificationId,bool isActive=false)
     {
         Mark = mark;
         LanguageCertificationId = languageCertificationId;
-        IsActive = isActive.HasValue && isActive.Value;
+        IsActive = isActive;
     }
     public void UpdateScore(Score? newScore)
     {

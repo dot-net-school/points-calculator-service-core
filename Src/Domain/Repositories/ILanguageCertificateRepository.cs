@@ -12,7 +12,7 @@ public interface ILanguageCertificateRepository
     public Task<LanguageCertification?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     public Task<LanguageCertification?> GetByIdAsNoTrackingAsync(Guid id, CancellationToken cancellationToken = default);
     
-    public Task<ReadOnlyCollection<LanguageCertification>> GetAllWithScoreAsync(CancellationToken cancellationToken = default);
+    public Task<IReadOnlyList<LanguageCertification>> GetAllWithScoreAsync(CancellationToken cancellationToken = default);
     public void Remove(LanguageCertification languageCertification);
 
 }

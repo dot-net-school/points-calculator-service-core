@@ -56,7 +56,7 @@ public class CreateLanguageCertificateScoreCommandHandler
     {
         var score = new Domain.ValueObjects.Score(request.Score, _domainLayerSettings);
         return new LanguageCertificationScore(score, request.Mark, Guid.Parse(request.LanguageCertificationId),
-            request.IsActive);
+            request.IsActive.GetValueOrDefault());
     }
 
     private async Task AddLanguageScoreAsync(LanguageCertificationScore languageScore,

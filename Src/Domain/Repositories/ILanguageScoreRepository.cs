@@ -11,7 +11,7 @@ public interface ILanguageScoreRepository
         GetByIdAsNoTrackingAsync(Guid id, CancellationToken cancellationToken = default);
     public Task<LanguageCertificationScore?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     public void Remove(LanguageCertificationScore languageCertificationScore);
-    public Task<ReadOnlyCollection<LanguageCertificationScore>> GetAllScoresWithCertification(
+    public Task<IReadOnlyList<LanguageCertificationScore>> GetAllScoresWithCertification(
         CancellationToken cancellationToken = default);
 
 }

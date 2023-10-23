@@ -20,7 +20,7 @@ public class CreateLanguageCertificateCommandHandler:IRequestHandler<CreateLangu
     public async Task<OperationResult<int>> Handle(CreateLanguageCertificateCommand request,
         CancellationToken cancellationToken=default)
     {
-        LanguageCertification languageCertification = new LanguageCertification(request.Name, request.IsActive);
+        LanguageCertification languageCertification = new LanguageCertification(request.Name, request.IsActive.GetValueOrDefault());
         await _languageCertificateRepository.AddAsync(languageCertification, cancellationToken);
         return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
     }
