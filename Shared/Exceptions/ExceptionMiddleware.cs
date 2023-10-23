@@ -25,18 +25,6 @@ internal sealed class ExceptionMiddleware
         {
             await _next(httpContext);
         }
-        catch (PublicException e)
-        {
-            // Handle the DbUpdateConcurrencyException
-            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //TODO Remove Magic Words in here to or place it in Resource file
-            var result = _env.IsDevelopment()
-                ? OperationResult<int>.Failed($"{e.Message}\n{e.StackTrace}", HttpStatusCode.InternalServerError)
-                : OperationResult<int>.Failed(Resource.ServerError, HttpStatusCode.InternalServerError);
-            var json = JsonSerializer.Serialize(result);
-            httpContext.Response.ContentType = "application/json";
-            await httpContext.Response.WriteAsync(json);
-        }
         catch (DbUpdateConcurrencyException e)
         {
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
