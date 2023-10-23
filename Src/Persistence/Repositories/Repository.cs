@@ -42,7 +42,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         return _context.Set<TEntity>().Where(predicate);
     }
-    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken=default)
 
     /*public async Task<bool> ExistsAsync(object id, CancellationToken cancellationToken)
     {
@@ -55,7 +54,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return await _context.Set<TEntity>().AnyAsync(predicate, cancellationToken);
     }
 
-    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken=default)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
     }
@@ -75,5 +74,4 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         await _context.SaveChangesAsync(cancellationToken);
     }
-
 }

@@ -10,7 +10,6 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     Task AddAsync(TEntity entity, CancellationToken cancellationToken);
     IQueryable<TEntity> GetAll();
 
-    IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
     Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken);
     Task SaveChangesAsync(CancellationToken cancellationToken);
     Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);

@@ -1,6 +1,8 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Common;
 
-public class MaritalStatusScore
+namespace Domain.Entities;
+
+public class MaritalStatusScore:BaseEntity
 {
     public Guid Id { get; set; }
     public string MaritalStatus { get; set; }
