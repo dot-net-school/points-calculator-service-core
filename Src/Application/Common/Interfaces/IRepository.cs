@@ -1,8 +1,9 @@
 ﻿using System.Linq.Expressions;
+using Domain.Common;
 
 namespace Application.Common.Interfaces;
 
-public interface IRepository<TEntity> where TEntity : class
+public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     void Update(TEntity entity);
     void Delete(TEntity entity);
@@ -16,5 +17,7 @@ public interface IRepository<TEntity> where TEntity : class
 
     //Task<bool> ExistsAsync(object id, CancellationToken cancellationToken);
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+
+    Task<TEntity> FirstOrDefaultAsNoTrackingAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
 
 }

@@ -2,5 +2,5 @@
 
 public interface IScoreCalculatorService<TInput, TOutput>
 {
-    public Task<TOutput> CalculateScore(TInput input);
+    public Task<TOutput> CalculateScore(TInput input,CancellationToken cancellationToken=default);
 }

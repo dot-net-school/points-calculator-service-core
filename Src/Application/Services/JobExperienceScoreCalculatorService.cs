@@ -13,13 +13,13 @@ public class JobExperienceScoreCalculatorService : IScoreCalculatorService<int, 
         _repository = repository;
     }
 
-    public async Task<int> CalculateScore(int jobExperience)
+    public async Task<int> CalculateScore(int jobExperience,CancellationToken cancellationToken=default)
     {
         if (jobExperience >= 9)
         {
             return 15;
         }
-
+        //TODO We Have High coupling here, data access duty is repository responsibility but here repository and application layer doing same thing, high coupling!
         var jobExperienceScore = await _repository.Find(x => x.MinExperience >= jobExperience && x.MaxExperience >= jobExperience)
             .Select(s => s.Score)
             .FirstOrDefaultAsync();

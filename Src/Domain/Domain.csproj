@@ -12,7 +12,6 @@
     <Folder Include="Factories\" />
     <Folder Include="Events\" />
     <Folder Include="Policies\" />
-    <Folder Include="Repositories\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections;
+using System.Net;
 
 namespace Shared;
 
@@ -31,12 +32,13 @@ namespace Shared;
 
         public static OperationResult<T> Failed(string message, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
         {
+            //when we need to return list and list is empty we return empty list
             return new OperationResult<T>
             {
                 IsSucceeded = false,
                 Message = message,
                 HttpStatusCode = httpStatusCode,
-                Data = default(T)
+                Data = typeof(T) == typeof(List<>) ? Activator.CreateInstance<T>() : default(T)
             };
         }
     }
