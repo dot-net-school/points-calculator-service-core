@@ -49,7 +49,7 @@ public class
                 HttpStatusCode.NotFound);
         }
 
-        languageScore.UpdateActiveness(request.IsActive);
+        languageScore.UpdateActiveness(request.IsActive.GetValueOrDefault());
         languageScore.UpdateMark(request.Mark);
         var score = new Domain.ValueObjects.Score(request.Score, _domainLayerSettings);
         languageScore.UpdateScore(score);
