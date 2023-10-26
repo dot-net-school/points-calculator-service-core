@@ -13,8 +13,5 @@ public interface IUnitOfWOrk : IDisposable, IAsyncDisposable
 
 public interface IApplicationUnitOfWork : IUnitOfWOrk
 {
-    public DbSet<AgeScore> AgeScores { get; set; }
-    public DbSet<JobExperienceScore> JobExperienceScores { get; set; }
-    public DbSet<LanguageCertification> LanguageCertifications { get; set; }
-    public DbSet<LanguageCertificationScore> LanguageScores { get; set; }
+    
 }
