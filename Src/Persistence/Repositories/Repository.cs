@@ -1,9 +1,9 @@
 ﻿#nullable disable
 
 using Application.Common.Interfaces;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Domain.Common;
 
 namespace Persistence.Repositories;
 

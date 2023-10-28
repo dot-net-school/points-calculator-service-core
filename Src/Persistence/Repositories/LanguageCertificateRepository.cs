@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Entities.LanguageScore;
+﻿using Domain.Entities.LanguageScore;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
