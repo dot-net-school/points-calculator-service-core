@@ -1,13 +1,11 @@
 using Application.Common;
 using Application.Common.Interfaces;
-using Domain.Common;
-using Application.Common.Interfaces;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.UnitOfWork;
 using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Persistence;
 
@@ -25,6 +23,7 @@ public static class Extensions
         services.AddScoped<ILanguageScoreRepository, LanguageScoreRepository>();
         services.AddScoped<IAgeScoreRepository, AgeScoreRepository>();
         services.AddScoped<IJobExperienceScoreRepository, JobExperienceScoreRepository>();
+        services.AddScoped<IMaritalStatusScoreRepository, MaritalStatusScoreRepositroy>();
         services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
         return services;
 
