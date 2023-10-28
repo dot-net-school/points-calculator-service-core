@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Persistence.Repositories;
 
@@ -38,4 +39,9 @@ public class JobExperienceScoreRepository : IJobExperienceScoreRepository
 
         return result.AsReadOnly();
     }
+    public IQueryable<JobExperienceScore> Find(Expression<Func<JobExperienceScore, bool>> predicate)
+    {
+        return _context.Set<JobExperienceScore>().Where(predicate);
+    }
+
 }

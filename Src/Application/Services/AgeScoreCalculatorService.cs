@@ -1,16 +1,16 @@
 using Application.Common.Interfaces;
-using Domain.Entities;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
 public class AgeScoreCalculatorService : IScoreCalculatorService<int, int>
 {
-    private readonly IRepository<AgeScore> _repository;
+    private readonly IAgeScoreRepository _ageScoreRepository;
 
-    public AgeScoreCalculatorService(IRepository<AgeScore> repository)
+    public AgeScoreCalculatorService( IAgeScoreRepository ageScoreRepository)
     {
-        _repository = repository;
+        _ageScoreRepository = ageScoreRepository;
     }
 
     public async Task<int> CalculateScore(int age, CancellationToken cancellationToken = default)
@@ -19,7 +19,7 @@ public class AgeScoreCalculatorService : IScoreCalculatorService<int, int>
         {
             return 0;
         }
-        var ageScore = await _repository.Find(x => x.FromAge >= age && x.ToAge >= age)
+        var ageScore = await _ageScoreRepository.Find(x => x.FromAge >= age && x.ToAge >= age)
             .Select(s => s.Score)
             .FirstOrDefaultAsync();
 

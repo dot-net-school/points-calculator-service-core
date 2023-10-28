@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Persistence.Repositories;
 
@@ -41,4 +42,10 @@ public class AgeScoreRepository : IAgeScoreRepository
 
         return result.AsReadOnly();
     }
+
+    public IQueryable<AgeScore> Find(Expression<Func<AgeScore, bool>> predicate)
+    {
+        return _context.Set<AgeScore>().Where(predicate);
+    }
+
 }

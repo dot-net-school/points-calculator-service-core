@@ -1,5 +1,4 @@
 using Application.Common;
-using Application.Common.Interfaces;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +17,6 @@ public static class Extensions
             options.UseSqlServer(configuration.GetConnectionString("MainDb"),
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<ILanguageCertificateRepository, LanguageCertificateRepository>();
         services.AddScoped<ILanguageScoreRepository, LanguageScoreRepository>();
         services.AddScoped<IAgeScoreRepository, AgeScoreRepository>();
