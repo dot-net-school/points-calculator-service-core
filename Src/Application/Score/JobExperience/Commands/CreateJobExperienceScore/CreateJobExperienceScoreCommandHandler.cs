@@ -1,6 +1,6 @@
 ﻿using Application.Common;
-using Application.Common.Interfaces;
 using Domain.Entities;
+using Domain.Repositories;
 using MediatR;
 using Shared;
 
@@ -8,15 +8,14 @@ namespace Application.Score.JobExperience.Commands.CreateJobExperienceScore;
 
 public class CreateJobExperienceScoreCommandHandler : IRequestHandler<CreateJobExperienceScoreCommand, OperationResult<int>>
 {
-    private readonly IRepository<JobExperienceScore> _jobExperienceScoreRepository;
+    private readonly IJobExperienceScoreRepository _jobExperienceScoreRepository;
     private readonly IApplicationUnitOfWork _unitOfWork;
 
 
-    public CreateJobExperienceScoreCommandHandler(IApplicationUnitOfWork unitOfWork,IRepository<JobExperienceScore> jobExperienceScoreRepository)
+    public CreateJobExperienceScoreCommandHandler(IApplicationUnitOfWork unitOfWork, IJobExperienceScoreRepository jobExperienceScoreRepository)
     {
         _jobExperienceScoreRepository = jobExperienceScoreRepository;
         _unitOfWork = unitOfWork;
-        // _context = context;
     }
 
     public async Task<OperationResult<int>> Handle(CreateJobExperienceScoreCommand request, CancellationToken cancellationToken)

@@ -23,6 +23,8 @@ public static class Extensions
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<ILanguageCertificateRepository, LanguageCertificateRepository>();
         services.AddScoped<ILanguageScoreRepository, LanguageScoreRepository>();
+        services.AddScoped<IAgeScoreRepository, AgeScoreRepository>();
+        services.AddScoped<IJobExperienceScoreRepository, JobExperienceScoreRepository>();
         services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
         return services;
 
