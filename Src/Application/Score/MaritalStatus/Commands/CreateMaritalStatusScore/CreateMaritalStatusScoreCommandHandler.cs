@@ -1,21 +1,23 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common;
 using Domain.Entities;
+using Domain.Repositories;
 using MediatR;
 using Shared;
-using System.Net;
 
 namespace Application.Score.MaritalStatus.Commands.CreateMaritalStatusScore;
 
-public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMaritalStatusScoreCommand, OperationResult<Guid>>
+public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMaritalStatusScoreCommand, OperationResult<int>>
 {
-    private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
+    private readonly IMaritalStatusScoreRepository _maritalStatusScoreRepository;
+    private readonly IApplicationUnitOfWork _unitOfWork;
 
-    public CreateMaritalStatusScoreCommandHandler(IRepository<MaritalStatusScore> maritalStatusScoreRepository)
+    public CreateMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IApplicationUnitOfWork unitOfWork)
     {
         _maritalStatusScoreRepository = maritalStatusScoreRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<Guid>> Handle(CreateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<int>> Handle(CreateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
     {
         var maritalStatus = new MaritalStatusScore
         {
@@ -25,20 +27,6 @@ public class CreateMaritalStatusScoreCommandHandler : IRequestHandler<CreateMari
 
         await _maritalStatusScoreRepository.AddAsync(maritalStatus,cancellationToken);
 
-        await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
-
-        var savedRecord = await _maritalStatusScoreRepository.FirstOrDefaultAsync(
-            x => x.Id == maritalStatus.Id, cancellationToken);
-
-        if (savedRecord != null)
-        {
-            return OperationResult<Guid>.Succeeded(maritalStatus.Id, (HttpStatusCode.Created).ToString());
-        }
-        else
-        {
-            return OperationResult<Guid>.Failed(Resource.Fail, HttpStatusCode.Created);
-        }
-
-
+        return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
     }
 }

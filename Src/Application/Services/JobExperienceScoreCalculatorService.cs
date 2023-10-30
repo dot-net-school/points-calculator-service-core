@@ -1,16 +1,16 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Entities;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
 public class JobExperienceScoreCalculatorService : IScoreCalculatorService<int, int>
 {
-    private readonly IRepository<JobExperienceScore> _repository;
+    private readonly IJobExperienceScoreRepository _jobExperienceScoreRepository;
 
-    public JobExperienceScoreCalculatorService( IRepository<JobExperienceScore> repository)
+    public JobExperienceScoreCalculatorService(IJobExperienceScoreRepository jobExperienceScoreRepository)
     {
-        _repository = repository;
+        _jobExperienceScoreRepository = jobExperienceScoreRepository;
     }
 
     public async Task<int> CalculateScore(int jobExperience,CancellationToken cancellationToken=default)
@@ -20,7 +20,7 @@ public class JobExperienceScoreCalculatorService : IScoreCalculatorService<int, 
             return 15;
         }
         //TODO We Have High coupling here, data access duty is repository responsibility but here repository and application layer doing same thing, high coupling!
-        var jobExperienceScore = await _repository.Find(x => x.MinExperience >= jobExperience && x.MaxExperience >= jobExperience)
+        var jobExperienceScore = await _jobExperienceScoreRepository.Find(x => x.MinExperience >= jobExperience && x.MaxExperience >= jobExperience)
             .Select(s => s.Score)
             .FirstOrDefaultAsync();
 

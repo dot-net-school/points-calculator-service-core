@@ -1,6 +1,6 @@
 ﻿using Application.Common;
-using Application.Common.Interfaces;
 using Domain.Entities;
+using Domain.Repositories;
 using MediatR;
 using Shared;
 
@@ -8,10 +8,10 @@ namespace Application.Score.Age.Commands.CreateAgeScore;
 
 public class AgeScoreCreateCommandHandler : IRequestHandler<AgeScoreCreateCommand, OperationResult<int>>
 {
-    private readonly IRepository<AgeScore> _ageScoreRepository;
+    private readonly IAgeScoreRepository _ageScoreRepository;
     private readonly IApplicationUnitOfWork _unitOfWork;
 
-    public AgeScoreCreateCommandHandler(IApplicationUnitOfWork unitOfWork, IRepository<AgeScore> ageScoreRepository)
+    public AgeScoreCreateCommandHandler(IApplicationUnitOfWork unitOfWork, IAgeScoreRepository ageScoreRepository)
     {
         _ageScoreRepository = ageScoreRepository;
         _unitOfWork = unitOfWork;

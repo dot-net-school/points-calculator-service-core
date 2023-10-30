@@ -1,25 +1,24 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
+﻿using Application.Common;
+using Domain.Repositories;
 using MediatR;
 using Shared;
 using System.Net;
-using Application.Common;
 
 namespace Application.Score.Age.Commands.UpdateAgeScore;
 
 public class AgeScoreUpdateCommandHandler : IRequestHandler<AgeScoreUpdateCommand, OperationResult<int>>
 {
-    private readonly IRepository<AgeScore> _ageScoreRepository;
+    private readonly IAgeScoreRepository _ageScoreRepository;
     private readonly IApplicationUnitOfWork _unitOfWork;
 
-    public AgeScoreUpdateCommandHandler(IApplicationUnitOfWork unitOfWork,IRepository<AgeScore> repository)
+    public AgeScoreUpdateCommandHandler(IApplicationUnitOfWork unitOfWork, IAgeScoreRepository repository)
     {
         _ageScoreRepository = repository;
         _unitOfWork = unitOfWork;
     }
     public async Task<OperationResult<int>> Handle(AgeScoreUpdateCommand request, CancellationToken cancellationToken)
     {
-        var ageScore = await _ageScoreRepository.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        var ageScore = await _ageScoreRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (ageScore is null)
         {

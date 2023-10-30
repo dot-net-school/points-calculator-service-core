@@ -1,16 +1,14 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
+﻿using Domain.Repositories;
 using Mapster;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Score.JobExperience.Queries;
 
 public class GetJobExperienceScoreQueryHandler : IRequestHandler<GetJobExperienceScoreQuery, List<GetJobExperienceScoreDto>>
 {
-    private readonly IRepository<JobExperienceScore> _jobExperienceScoreRepository;
+    private readonly IJobExperienceScoreRepository _jobExperienceScoreRepository;
 
-    public GetJobExperienceScoreQueryHandler(IRepository<JobExperienceScore> jobExperienceScoreRepository)
+    public GetJobExperienceScoreQueryHandler(IJobExperienceScoreRepository jobExperienceScoreRepository)
     {
         _jobExperienceScoreRepository = jobExperienceScoreRepository;
     }
@@ -18,7 +16,7 @@ public class GetJobExperienceScoreQueryHandler : IRequestHandler<GetJobExperienc
 
     public async Task<List<GetJobExperienceScoreDto>> Handle(GetJobExperienceScoreQuery request, CancellationToken cancellationToken)
     {
-        return (await _jobExperienceScoreRepository.GetAll().ToListAsync(cancellationToken)).Adapt<List<GetJobExperienceScoreDto>>();
+        return (await _jobExperienceScoreRepository.GetAllAsync(cancellationToken)).Adapt<List<GetJobExperienceScoreDto>>();
     }
 
 }

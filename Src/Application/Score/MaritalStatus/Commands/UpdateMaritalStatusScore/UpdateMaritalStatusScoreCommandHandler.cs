@@ -1,47 +1,34 @@
-﻿using System.Net;
-using Application.Common.Interfaces;
-using Domain.Entities;
+﻿using Application.Common;
+using Domain.Repositories;
 using MediatR;
 using Shared;
 
 namespace Application.Score.MaritalStatus.Commands.UpdateMaritalStatusScore;
 
-public class UpdateMaritalStatusScoreCommandHandler : IRequestHandler<UpdateMaritalStatusScoreCommand, OperationResult<string>>
+public class UpdateMaritalStatusScoreCommandHandler : IRequestHandler<UpdateMaritalStatusScoreCommand, OperationResult<int>>
 {
-    private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
-
-    public UpdateMaritalStatusScoreCommandHandler(IRepository<MaritalStatusScore> maritalStatusScoreRepository)
+    private readonly IMaritalStatusScoreRepository _maritalStatusScoreRepository;
+    private readonly IUnitOfWOrk _unitOfWork;
+    public UpdateMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IUnitOfWOrk unitOfWork)
     {
         _maritalStatusScoreRepository = maritalStatusScoreRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<string>> Handle(UpdateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<int>> Handle(UpdateMaritalStatusScoreCommand request, CancellationToken cancellationToken)
     {
-        var maritalStatus = await _maritalStatusScoreRepository
-            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        var maritalStatus = await _maritalStatusScoreRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (maritalStatus is null)
         {
-            return OperationResult<string>.Failed(Resource.RecordNotFound);
+            return OperationResult<int>.Failed(Resource.RecordNotFound);
         }
 
         maritalStatus.Update(request.Score);
         _maritalStatusScoreRepository.Update(maritalStatus);
 
-        await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
+        return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
 
-        var isRecordUpdated = await _maritalStatusScoreRepository
-            .AnyAsync(x => x.Score != maritalStatus.Score, cancellationToken);
-
-        if (isRecordUpdated)
-        {
-            return OperationResult<string>.Succeeded((HttpStatusCode.Created).ToString());
-        }
-        else
-        {
-            return OperationResult<string>.Failed(Resource.Fail);
-
-        }
     }
 
 }
