@@ -29,7 +29,7 @@ public class LanguageCertificateController:ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<OperationResult<GetLanguageCertificateWithScoreDto>> GetSingle(string id)
+    public async Task<OperationResult<GetLanguageCertificateWithScoreDto>> GetById(string id)
     {
         return await _mediator.Send(new GetSingleLanguageCertificateWithScoreQuery(id));
     }
