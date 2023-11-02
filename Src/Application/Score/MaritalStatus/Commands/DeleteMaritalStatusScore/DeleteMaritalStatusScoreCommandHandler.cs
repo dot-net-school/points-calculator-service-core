@@ -8,8 +8,8 @@ namespace Application.Score.MaritalStatus.Commands.DeleteMaritalStatusScore;
 public class DeleteMaritalStatusScoreCommandHandler : IRequestHandler<DeleteMaritalStatusScoreCommand, OperationResult<int>>
 {
     private readonly IMaritalStatusScoreRepository _maritalStatusScoreRepository;
-    private readonly IUnitOfWOrk _unitOfWork;
-    public DeleteMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IUnitOfWOrk unitOfWork)
+    private readonly IApplicationUnitOfWork _unitOfWork;
+    public DeleteMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IApplicationUnitOfWork unitOfWork)
     {
         _maritalStatusScoreRepository = maritalStatusScoreRepository;
         _unitOfWork = unitOfWork;

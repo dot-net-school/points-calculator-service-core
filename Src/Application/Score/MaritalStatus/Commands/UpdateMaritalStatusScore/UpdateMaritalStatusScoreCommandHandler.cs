@@ -8,8 +8,8 @@ namespace Application.Score.MaritalStatus.Commands.UpdateMaritalStatusScore;
 public class UpdateMaritalStatusScoreCommandHandler : IRequestHandler<UpdateMaritalStatusScoreCommand, OperationResult<int>>
 {
     private readonly IMaritalStatusScoreRepository _maritalStatusScoreRepository;
-    private readonly IUnitOfWOrk _unitOfWork;
-    public UpdateMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IUnitOfWOrk unitOfWork)
+    private readonly IApplicationUnitOfWork _unitOfWork;
+    public UpdateMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IApplicationUnitOfWork unitOfWork)
     {
         _maritalStatusScoreRepository = maritalStatusScoreRepository;
         _unitOfWork = unitOfWork;
