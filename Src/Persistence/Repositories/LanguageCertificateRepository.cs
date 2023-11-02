@@ -33,6 +33,7 @@ internal sealed class LanguageCertificateRepository : ILanguageCertificateReposi
     {
         return await _context.LanguageCertifications
             .Include(lc => lc.LanguageCertificationScores)
+            .AsSplitQuery()
             .AsNoTracking()
             .FirstOrDefaultAsync(lc => lc.Id == id, cancellationToken);
     }
@@ -56,9 +57,9 @@ internal sealed class LanguageCertificateRepository : ILanguageCertificateReposi
     {
         var result = await _context.LanguageCertifications
             .Include(lc => lc.LanguageCertificationScores)
+            .AsSplitQuery()
             .AsNoTracking()
             .ToListAsync(cancellationToken);
-
         return result.AsReadOnly();
     }
 
