@@ -5,7 +5,9 @@ namespace Domain.Entities.LanguageScore;
 public sealed class LanguageCertification:BaseEntity
 {
     public string Name { get; private set; }
+    //public bool IsActive { get; private set; }
     public bool IsActive { get; private set; }
+
     public ICollection<LanguageCertificationScore> LanguageCertificationScores { get; } = new List<LanguageCertificationScore>();
 
     public LanguageCertification(string name, bool isActive=false)
@@ -22,11 +24,11 @@ public sealed class LanguageCertification:BaseEntity
         }
     }
 
-    public void UpdateActiveness(bool? isActive)
+    public void UpdateActiveness(bool isActive)
     {
-        if (isActive.HasValue)
+        if (isActive)
         {
-            IsActive = isActive.Value;
+            IsActive = isActive;
         }
     }
 }

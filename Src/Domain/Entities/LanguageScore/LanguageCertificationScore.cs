@@ -16,7 +16,7 @@ public sealed class LanguageCertificationScore:BaseEntity
     [Required]
     public Guid LanguageCertificationId { get; set; }
     //TODO place for ensure language certification is exist in application layer is good approach?
-    public LanguageCertification LanguageCertification { get; set; } = null!;
+    public LanguageCertification LanguageCertification { get; set; }
 
    //TODO how about to make LanguageCertification nullable? and LanguageCertificationId required?  for make constructor smaller but in service layer we will be assure that LanguageCertification is exist in db
     
@@ -50,11 +50,11 @@ public sealed class LanguageCertificationScore:BaseEntity
         }
     }
 
-    public void UpdateActiveness(bool? isActive)
+    public void UpdateActiveness(bool isActive)
     {
-        if (isActive.HasValue)
+        if (isActive)
         {
-            IsActive = isActive.Value;
+            IsActive = isActive;
         }
     }
    
