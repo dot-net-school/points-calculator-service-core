@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Language;
 using Domain.Entities.LanguageScore;
 
 namespace Application.Common.Mappers;

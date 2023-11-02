@@ -16,6 +16,7 @@ public class
     private readonly IApplicationUnitOfWork _unitOfWork;
     private readonly ILanguageScoreRepository _languageScoreRepository;
     private readonly ILanguageCertificateRepository _languageCertificateRepository;
+    //TODO Q: IS it Violate DDD? ValueObject is not independent and needs to inject settings from here
     private readonly IDomainLayerSettings _domainLayerSettings;
 
     public UpdateLanguageCertificateScoreCommandHandler(IApplicationUnitOfWork unitOfWork,
@@ -49,7 +50,7 @@ public class
                 HttpStatusCode.NotFound);
         }
 
-        languageScore.UpdateActiveness(request.IsActive);
+        languageScore.UpdateActiveness(request.IsActive.GetValueOrDefault());
         languageScore.UpdateMark(request.Mark);
         var score = new Domain.ValueObjects.Score(request.Score, _domainLayerSettings);
         languageScore.UpdateScore(score);

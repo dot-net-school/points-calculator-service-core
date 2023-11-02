@@ -2,6 +2,7 @@
 using Application.Common.Interfaces;
 using Application.Common.Validation;
 using Application.DTOs;
+using Application.DTOs.Language;
 using Application.LanguageCertificate.Create;
 using Application.LanguageCertificate.Delete;
 using Application.LanguageCertificate.Update;
@@ -22,7 +23,8 @@ public static class Extensions
 
         services.AddScoped<IScoreCalculatorService<int, int>, JobExperienceScoreCalculatorService>();
         services.AddScoped<IScoreCalculatorService<int, int>, MaritalStatusScoreCalculatorService>();
-        services.AddScoped<IScoreCalculatorService<LanguageMarkDtoList, LanguageMarkDtoList>, LanguageScoreCalculator>();
+        services
+            .AddScoped<IScoreCalculatorService<LanguageMarkDtoList, LanguageMarkDtoList>, LanguageScoreCalculator>();
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddValidatorsFromAssemblyContaining<IValidatorBase>();

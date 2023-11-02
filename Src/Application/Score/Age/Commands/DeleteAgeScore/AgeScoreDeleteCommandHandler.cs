@@ -26,7 +26,6 @@ public class AgeScoreDeleteCommandHandler : IRequestHandler<AgeScoreDeleteComman
         {
             return OperationResult<int>.Failed(Resource.RecordNotFound,HttpStatusCode.NotFound);
         }
-
         _ageScoreRepository.Delete(ageScore);
         await _ageScoreRepository.SaveChangesAsync(cancellationToken);
         return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);

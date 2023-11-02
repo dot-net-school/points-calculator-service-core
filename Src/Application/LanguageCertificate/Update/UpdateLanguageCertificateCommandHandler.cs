@@ -31,7 +31,7 @@ public class UpdateLanguageCertificateCommandHandler
             return OperationResult<int>.Failed(Resource.RecordNotFound, HttpStatusCode.NotFound);
         }
         languageCertification.UpdateName(request.Name);
-        languageCertification.UpdateActiveness(request.IsActive);
+        languageCertification.UpdateActiveness(request.IsActive.GetValueOrDefault());
         return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
     }
 }

@@ -41,7 +41,7 @@ public class CreateLanguageCertificateScoreCommandHandler
                 HttpStatusCode.NotFound);
         }
 
-        var languageScore = CreateLanguageScore(request);
+        var languageScore = ToEntity(request);
         await AddLanguageScoreAsync(languageScore, cancellationToken);
         return await _unitOfWOrk.SaveAsyncAndReturnResult(cancellationToken);
     }
@@ -52,7 +52,7 @@ public class CreateLanguageCertificateScoreCommandHandler
         return await _languageCertificateRepository.GetByIdAsync(id, cancellationToken);
     }
 
-    private LanguageCertificationScore CreateLanguageScore(CreateLanguageCertificateScoreCommand request)
+    private LanguageCertificationScore ToEntity(CreateLanguageCertificateScoreCommand request)
     {
         var score = new Domain.ValueObjects.Score(request.Score, _domainLayerSettings);
         return new LanguageCertificationScore(score, request.Mark, Guid.Parse(request.LanguageCertificationId),
