@@ -1,44 +1,31 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common;
+using Domain.Repositories;
 using MediatR;
 using Shared;
-using System.Net;
-using Domain.Entities;
 
 namespace Application.Score.MaritalStatus.Commands.DeleteMaritalStatusScore;
 
-public class
-    DeleteMaritalStatusScoreCommandHandler : IRequestHandler<DeleteMaritalStatusScoreCommand, OperationResult<string>>
+public class DeleteMaritalStatusScoreCommandHandler : IRequestHandler<DeleteMaritalStatusScoreCommand, OperationResult<int>>
 {
-    private readonly IRepository<MaritalStatusScore> _maritalStatusScoreRepository;
-
-    public DeleteMaritalStatusScoreCommandHandler(IRepository<MaritalStatusScore> maritalStatusScoreRepository)
+    private readonly IMaritalStatusScoreRepository _maritalStatusScoreRepository;
+    private readonly IUnitOfWOrk _unitOfWork;
+    public DeleteMaritalStatusScoreCommandHandler(IMaritalStatusScoreRepository maritalStatusScoreRepository, IUnitOfWOrk unitOfWork)
     {
         _maritalStatusScoreRepository = maritalStatusScoreRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<string>> Handle(DeleteMaritalStatusScoreCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<int>> Handle(DeleteMaritalStatusScoreCommand request, CancellationToken cancellationToken)
     {
-        var maritalStatus = await _maritalStatusScoreRepository.FindByIdAsync(request.Id, cancellationToken);
+        var maritalStatus = await _maritalStatusScoreRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (maritalStatus is null)
         {
-            return OperationResult<string>.Failed(Resource.RecordNotFound);
+            return OperationResult<int>.Failed(Resource.RecordNotFound);
         }
 
-        _maritalStatusScoreRepository.Delete(maritalStatus);
+        _maritalStatusScoreRepository.Remove(maritalStatus);
 
-
-        await _maritalStatusScoreRepository.SaveChangesAsync(cancellationToken);
-
-        var isRecordDeleted = await _maritalStatusScoreRepository.AnyAsync(x => x.Id == request.Id, cancellationToken);
-
-        if (isRecordDeleted)
-        {
-            return OperationResult<string>.Failed(Resource.Fail);
-        }
-        else
-        {
-            return OperationResult<string>.Succeeded((HttpStatusCode.Created).ToString());
-        }
+        return await _unitOfWork.SaveAsyncAndReturnResult(cancellationToken);
     }
 }

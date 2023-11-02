@@ -26,20 +26,20 @@ public class MaritalStatusScoreController
     }
 
     [HttpPost]
-    public async Task<OperationResult<Guid>> Create(CreateMaritalStatusScoreCommand command)
+    public async Task<OperationResult<int>> Create(CreateMaritalStatusScoreCommand command)
     {
         return await _mediator.Send(command);
         
     }
 
     [HttpPut]
-    public async Task<ActionResult<OperationResult<string>>> Update(UpdateMaritalStatusScoreCommand command)
+    public async Task<ActionResult<OperationResult<int>>> Update(UpdateMaritalStatusScoreCommand command)
     {
         return await _mediator.Send(command);
     }
 
     [HttpDelete("{Id}")]
-    public async Task<ActionResult<OperationResult<string>>> Delete(Guid Id)
+    public async Task<ActionResult<OperationResult<int>>> Delete(Guid Id)
     {
         return await _mediator.Send(new DeleteMaritalStatusScoreCommand(Id));
     }
