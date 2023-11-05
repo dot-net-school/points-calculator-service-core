@@ -19,6 +19,7 @@ public static class Extensions
 
         services.AddScoped<ILanguageCertificateRepository, LanguageCertificateRepository>();
         services.AddScoped<ILanguageScoreRepository, LanguageScoreRepository>();
+        services.AddScoped<IUniversityDegreeRepository, UniversityDegreeRepository>();
         services.AddScoped<IAgeScoreRepository, AgeScoreRepository>();
         services.AddScoped<IJobExperienceScoreRepository, JobExperienceScoreRepository>();
         services.AddScoped<IMaritalStatusScoreRepository, MaritalStatusScoreRepositroy>();

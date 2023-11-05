@@ -1,5 +1,6 @@
 ﻿
 using Application.DTOs;
+using Application.DTOs.Language;
 
 namespace Application.Score.Language.Queries;
 

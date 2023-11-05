@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Common.Interfaces;
 using Application.DTOs;
+using Application.DTOs.Language;
 using Domain.Entities.LanguageScore;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +11,10 @@ namespace Application.Services;
 public class LanguageScoreCalculator
     : IScoreCalculatorService<LanguageMarkDtoList, LanguageMarkDtoList>
 {
-    private readonly IApplicationUnitOfWork _unitOfWork;
     private readonly ILanguageScoreRepository _languageScoreRepository;
     
-    public LanguageScoreCalculator(IApplicationUnitOfWork unitOfWork, ILanguageScoreRepository languageScoreRepository)
+    public LanguageScoreCalculator(ILanguageScoreRepository languageScoreRepository)
     {
-        _unitOfWork = unitOfWork;
         _languageScoreRepository = languageScoreRepository;
     }
 

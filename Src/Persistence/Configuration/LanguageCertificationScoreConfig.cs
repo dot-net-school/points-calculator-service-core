@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configuration;
 
-public class LanguageCertificationScoreConfig:IEntityTypeConfiguration<LanguageCertificationScore>
+public sealed class LanguageCertificationScoreConfig:IEntityTypeConfiguration<LanguageCertificationScore>
 {
     public void Configure(EntityTypeBuilder<LanguageCertificationScore> builder)
     {

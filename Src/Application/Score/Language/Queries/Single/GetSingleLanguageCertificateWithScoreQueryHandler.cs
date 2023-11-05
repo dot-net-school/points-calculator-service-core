@@ -3,9 +3,7 @@ using Application.Common;
 using Application.Common.Mappers;
 using Domain.Entities.LanguageScore;
 using Domain.Repositories;
-using Mapster;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Shared;
 
 namespace Application.Score.Language.Queries.Single;

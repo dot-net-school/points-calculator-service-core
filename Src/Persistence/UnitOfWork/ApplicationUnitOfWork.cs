@@ -5,7 +5,7 @@ using Shared;
 
 namespace Persistence.UnitOfWork;
 
-public partial class ApplicationUnitOfWork : IApplicationUnitOfWork
+public class ApplicationUnitOfWork : IApplicationUnitOfWork
 {
     private readonly ApplicationDbContext _context;
 

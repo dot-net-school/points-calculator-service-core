@@ -34,14 +34,14 @@ public class GetListLanguageCertificateWithScoreQueryHandler
             return OperationResult<List<GetLanguageCertificateWithScoreDto>>
                 .Succeeded(results, Resource.Success, HttpStatusCode.Accepted);
         }
-
         return OperationResult<List<GetLanguageCertificateWithScoreDto>>.Failed(Resource.NoRecords,
-            HttpStatusCode.NoContent);
+            HttpStatusCode.NotFound);
     }
 
     private async Task<List<GetLanguageCertificateWithScoreDto>> FetchAndMapData(CancellationToken cancellationToken)
     {
-        var languageCertifications = await _languageCertificateRepository.GetAllWithScoreAsync(cancellationToken);
+        var languageCertifications = await _languageCertificateRepository
+            .GetAllWithScoreAsync(cancellationToken);
 
         var mapper = new LanguageScoreDtoMapper();
         var result = new List<GetLanguageCertificateWithScoreDto>();
@@ -51,7 +51,6 @@ public class GetListLanguageCertificateWithScoreQueryHandler
             var scoreDtos = lc.LanguageCertificationScores.Select(mapper.Map).ToList();
             result.Add(new GetLanguageCertificateWithScoreDto(lc.Id, lc.Name, lc.IsActive, scoreDtos));
         }
-
         return result;
     }
 }

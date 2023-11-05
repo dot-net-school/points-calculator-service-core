@@ -4,6 +4,16 @@
 
 This project is part of the Australian Immigration Institute's services. It's a point calculation service that helps applicants calculate their immigration points based on various factors such as age, work experience, education, and more. This project is an open-source initiative by the .NET School Community.
 
+#OurTeam
+## Our Perfect Mentor
+- <a href="https://github.com/mohammadKarimi" target="_blank">@mohammadKarimi</a>
+
+## Members
+- <a href="https://github.com/FarzanehMG" target="_blank">@FarzanehMG</a>
+- <a href="https://github.com/MohadeseEntezari" target="_blank">@MohadeseEntezari</a>
+- <a href="https://github.com/mahdignb" target="_blank">@mahdignb</a>
+- <a href="https://github.com/MehranLabour" target="_blank">@MehranLabour</a>
+
 ## Architecture
 
 This project follows the principles of Lean Architecture. This approach focuses on delivering value to the end user while minimizing waste and maximizing efficiency.
