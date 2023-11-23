@@ -18,7 +18,7 @@ public static class Extensions
         services.AddScoped<LanguageScoreCalculator> ();
         services.AddScoped<MaritalStatusScoreStrategy> ();
         services.AddScoped<UniversityDegreeCalculator> ();
-        services.AddScoped<Application.Services.TotalPointCalculator> ();
+        services.AddScoped<Application.Services.TotalScoreCalculator> ();
         
         services.AddScoped<List<IScoreStrategy>>(provider => new List<IScoreStrategy>
         {
