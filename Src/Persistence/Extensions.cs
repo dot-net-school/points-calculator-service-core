@@ -25,6 +25,5 @@ public static class Extensions
         services.AddScoped<IMaritalStatusScoreRepository, MaritalStatusScoreRepositroy>();
         services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
         return services;
-
     }
 }

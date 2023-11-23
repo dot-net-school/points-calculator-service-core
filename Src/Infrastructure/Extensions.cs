@@ -1,3 +1,5 @@
+using Application.Common.Interfaces;
+using Infrastructure.CustomerServiceProvider;
 using Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +13,13 @@ public static class Extensions
         IConfiguration configuration)
     {
         //for put all settings in infra layer and its package in one layer but 
+        services.AddHttpClient();
         //TODO maybe we could move it to shared layer i think as option
         var domainSettings = new DomainLayerSettings();
         configuration.GetSection("AppSettings:DomainLayerSettings").Bind(domainSettings);
         services.AddSingleton<IDomainLayerSettings>(domainSettings);
+        services.AddScoped<IGetCustomerAdapter, GetCustomerAdapter>();
+
         return services;
     }
 }
