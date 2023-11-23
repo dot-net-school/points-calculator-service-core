@@ -1,4 +1,5 @@
-﻿using Application.Score.MaritalStatus.Commands.CreateMaritalStatusScore;
+﻿using API.Filters;
+using Application.Score.MaritalStatus.Commands.CreateMaritalStatusScore;
 using Application.Score.MaritalStatus.Commands.DeleteMaritalStatusScore;
 using Application.Score.MaritalStatus.Commands.UpdateMaritalStatusScore;
 using Application.Score.MaritalStatus.Queries;
@@ -10,6 +11,7 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[ValidateModelState]
 public class MaritalStatusScoreController
 {
     private readonly IMediator _mediator;

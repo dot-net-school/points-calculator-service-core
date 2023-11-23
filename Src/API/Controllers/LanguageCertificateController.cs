@@ -28,10 +28,10 @@ public class LanguageCertificateController:ControllerBase
         return await _mediator.Send(new GetListLanguageCertificateWithScoreQuery());
     }
 
-    [HttpGet("{id}")]
-    public async Task<OperationResult<GetLanguageCertificateWithScoreDto>> GetById(string id)
+    [HttpGet("id")]
+    public async Task<OperationResult<GetLanguageCertificateWithScoreDto>> GetById([FromQuery] GetSingleLanguageCertificateWithScoreQuery query)
     {
-        return await _mediator.Send(new GetSingleLanguageCertificateWithScoreQuery(id));
+        return await _mediator.Send(query);
     }
     
     [HttpPost]
