@@ -29,7 +29,6 @@ public class
         {
             return OperationResult<int>.Failed(Resource.RecordNotFound, HttpStatusCode.NotFound);
         }
-
         _languageScoreRepository.Remove(languageCertificationScore);
         return await _unitOfWOrk.SaveAsyncAndReturnResult(cancellationToken);
     }

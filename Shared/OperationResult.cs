@@ -5,7 +5,7 @@ namespace Shared;
 
     public class OperationResult<T>
     {
-        public bool IsSucceeded { get; private set; }
+        public bool IsSucceed { get; private set; }
         public string Message { get; private set; }
         public HttpStatusCode HttpStatusCode { get; private set; }
 
@@ -13,7 +13,7 @@ namespace Shared;
 
         private OperationResult()
         {
-            IsSucceeded = false;
+            IsSucceed = false;
             Message = string.Empty;
             HttpStatusCode = 0;
             Data = default;
@@ -23,7 +23,7 @@ namespace Shared;
         {
             return new OperationResult<T>
             {
-                IsSucceeded = true,
+                IsSucceed = true,
                 Message = message,
                 HttpStatusCode = httpStatusCode,
                 Data = data
@@ -35,7 +35,7 @@ namespace Shared;
             //when we need to return list and list is empty we return empty list
             return new OperationResult<T>
             {
-                IsSucceeded = false,
+                IsSucceed = false,
                 Message = message,
                 HttpStatusCode = httpStatusCode,
                 Data = typeof(T) == typeof(List<>) ? Activator.CreateInstance<T>() : default(T)

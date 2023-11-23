@@ -4,6 +4,7 @@
 
 This project is part of the Australian Immigration Institute's services. It's a point calculation service that helps applicants calculate their immigration points based on various factors such as age, work experience, education, and more. This project is an open-source initiative by the .NET School Community.
 
+
 #OurTeam
 ## Our Perfect Mentor
 - <a href="https://github.com/mohammadKarimi" target="_blank">@mohammadKarimi</a>
@@ -32,7 +33,48 @@ Our point calculation service includes several sub-services:
 
 ### Prerequisites
 
-(Add any prerequisites for your project here)
+We have Mock Server, Please Download <a href="https://mockoon.com/" target="_blank">Mockoon</a> and create an get api on it by route of "getcustomer/:id" after that put below json on it.
+
+we need this mock platform to get sample customer info for calculate its scores
+
+Sample Json :
+```
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "age": 35,
+  "marital": {
+    "status": "1",
+    "spousestatus": 2
+  },
+  "universitydegrees": [
+    {
+      "id": "bf37c607-e83f-474a-2943-08dbec01c069",
+      "universityname": "PGU ",
+      "degreename": "Computer engineer - Bachelor"
+    },
+    {
+      "id": "395863d8-0dfd-4975-2944-08dbec01c069",
+      "name": "Azad ALi Shahr",
+      "degreename": "Computer Engineer - Associate"
+    }
+  ],
+  "languagedegrees": [
+    {
+      "id": "dfd00566-3ff3-4855-e316-08dbebfe276c",
+      "name": "Ielts",
+      "mark": "8"
+    },
+    {
+      "id": "98eac0b9-d56e-4b72-e31a-08dbebfe276c",
+      "name": "PTE 65",
+      "mark": "65"
+    }
+  ],
+  "jobexperience": 10
+}
+```
+
+For test TotalScore Calculator You need to run Mock Server
 
 ### Installation
 

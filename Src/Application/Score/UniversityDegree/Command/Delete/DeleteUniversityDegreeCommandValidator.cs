@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Score.UniversityDegree.Command.Delete;
 
-public sealed class DeleteUniversityDegreeCommandValidator:AbstractValidator<DeleteUniversityDegreeCommand>
+public sealed class DeleteUniversityDegreeCommandValidator:AbstractValidator<DeleteUniversityDegreeCommand>,IValidatorBase
 {
     public DeleteUniversityDegreeCommandValidator()
     {

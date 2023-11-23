@@ -28,10 +28,10 @@ public class UniversityDegreeController : ControllerBase
         return await _mediator.Send(new GetListUniversityDegreeQuery());
     }
 
-    [HttpGet("{id}")]
-    public async Task<OperationResult<GetUniversityDegreeDto>> GetById(string id)
+    [HttpGet("id")]
+    public async Task<OperationResult<GetUniversityDegreeDto>> GetById([FromQuery] GetSingleUniversityDegreeQuery query)
     {
-        return await _mediator.Send(new GetSingleUniversityDegreeQuery(id));
+        return await _mediator.Send(query);
     }
 
     [HttpPost]
