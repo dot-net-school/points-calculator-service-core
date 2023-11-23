@@ -11,6 +11,6 @@ public class CreateLanguageCertificateCommandValidator : AbstractValidator<Creat
         RuleFor(lc => lc.Name)
             .NotEmpty()
             .WithMessage("Name is required")
-            .MaximumLength(30).WithMessage("Max Lenght is 30");
+            .MaximumLength(30).WithMessage("Max Lenght Of Name is 30");
     }
 }
