@@ -9,13 +9,11 @@ public class GetMaritalStatusScoreQueryValidator : AbstractValidator<GetMaritalS
         RuleFor(x => x.Id)
             .NotEmpty()
             .WithMessage("ID is required.");
-
-
+        
         RuleFor(x => x.MaritalStatus)
             .NotEmpty()
             .WithMessage("Marital status cannot be empty.");
-
-
+        
         RuleFor(x => x.Score)
             .NotNull()
             .WithMessage("Number is required.")
